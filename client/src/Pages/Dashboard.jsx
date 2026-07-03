@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import Navbar from "../components/layout/Navbar";
+import AddTaskModal from "../components/task/AddTaskModal";
 import api from "../services/api";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchTasks();
@@ -45,17 +47,30 @@ function Dashboard() {
         <Navbar />
 
         <main className="flex-1 p-6">
-          <h1 className="text-3xl font-bold text-gray-800">
-            My Tasks
-          </h1>
+          {/* Header */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800">
+                My Tasks
+              </h1>
 
-          <p className="mt-2 text-gray-600">
-            Manage all your tasks here.
-          </p>
+              <p className="mt-2 text-gray-600">
+                Manage all your tasks here.
+              </p>
+            </div>
 
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="rounded-lg bg-indigo-600 px-5 py-3 font-medium text-white transition hover:bg-indigo-700"
+            >
+              + Add Task
+            </button>
+          </div>
+
+          {/* Stats */}
           <div className="mt-8 grid gap-6 md:grid-cols-3">
             <div className="rounded-xl bg-indigo-600 p-6 text-white shadow">
-              <h3 className="text-lg">Total Tasks</h3>
+              <h3>Total Tasks</h3>
 
               <p className="mt-3 text-4xl font-bold">
                 {tasks.length}
@@ -63,7 +78,7 @@ function Dashboard() {
             </div>
 
             <div className="rounded-xl bg-yellow-500 p-6 text-white shadow">
-              <h3 className="text-lg">Pending</h3>
+              <h3>Pending</h3>
 
               <p className="mt-3 text-4xl font-bold">
                 {pending}
@@ -71,7 +86,7 @@ function Dashboard() {
             </div>
 
             <div className="rounded-xl bg-green-600 p-6 text-white shadow">
-              <h3 className="text-lg">Completed</h3>
+              <h3>Completed</h3>
 
               <p className="mt-3 text-4xl font-bold">
                 {completed}
@@ -79,6 +94,7 @@ function Dashboard() {
             </div>
           </div>
 
+          {/* Task List */}
           <div className="mt-10 space-y-4">
             {loading ? (
               <div className="rounded-xl bg-white p-6 text-center shadow">
@@ -119,6 +135,13 @@ function Dashboard() {
           </div>
         </main>
       </div>
+
+      {/* Modal */}
+      <AddTaskModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        fetchTasks={fetchTasks}
+      />
     </div>
   );
 }
