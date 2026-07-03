@@ -3,11 +3,15 @@ import Sidebar from "../components/layout/Sidebar";
 import Navbar from "../components/layout/Navbar";
 import AddTaskModal from "../components/task/AddTaskModal";
 import api from "../services/api";
+import TaskCard from "../components/task/TaskCard";
+import EditTaskModal from "../components/task/EditTaskModal";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
     fetchTasks();
@@ -30,6 +34,68 @@ function Dashboard() {
       setLoading(false);
     }
   };
+
+  const handleDelete = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this task?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await api.delete(`/tasks/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    alert(response.data.message);
+
+    fetchTasks();
+  } catch (error) {
+    alert(
+      error.response?.data?.message ||
+        "Failed to delete task."
+    );
+  }
+};
+
+const handleToggleStatus = async (task) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await api.put(
+      `/tasks/${task._id}`,
+      {
+        status:
+          task.status === "Pending"
+            ? "Completed"
+            : "Pending",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert(response.data.message);
+
+    fetchTasks();
+  } catch (error) {
+    alert(
+      error.response?.data?.message ||
+        "Failed to update task."
+    );
+  }
+};
+
+const handleEdit = (task) => {
+  setSelectedTask(task);
+  setIsEditOpen(true);
+};
 
   const completed = tasks.filter(
     (task) => task.status === "Completed"
@@ -106,31 +172,14 @@ function Dashboard() {
               </div>
             ) : (
               tasks.map((task) => (
-                <div
-                  key={task._id}
-                  className="rounded-xl bg-white p-5 shadow"
-                >
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold">
-                      {task.title}
-                    </h2>
-
-                    <span
-                      className={`rounded-full px-4 py-1 text-sm font-medium ${
-                        task.status === "Completed"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-yellow-100 text-yellow-700"
-                      }`}
-                    >
-                      {task.status}
-                    </span>
-                  </div>
-
-                  <p className="mt-3 text-gray-600">
-                    {task.description}
-                  </p>
-                </div>
-              ))
+  <TaskCard
+    key={task._id}
+    task={task}
+    onDelete={handleDelete}
+    onToggleStatus={handleToggleStatus}
+    onEdit={handleEdit}
+  />
+))
             )}
           </div>
         </main>
@@ -142,6 +191,14 @@ function Dashboard() {
         onClose={() => setIsModalOpen(false)}
         fetchTasks={fetchTasks}
       />
+
+<EditTaskModal
+  isOpen={isEditOpen}
+  onClose={() => setIsEditOpen(false)}
+  task={selectedTask}
+  fetchTasks={fetchTasks}
+/>
+
     </div>
   );
 }
