@@ -3,6 +3,7 @@ import api from "../../services/api";
 
 import Button from "../common/Button";
 import Input from "../common/Input";
+import { toast } from "react-toastify";
 
 function AddTaskModal({ isOpen, onClose, fetchTasks }) {
   const [formData, setFormData] = useState({
@@ -35,7 +36,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       setFormData({
         title: "",
@@ -46,10 +47,10 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
 
       onClose();
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          "Failed to create task."
-      );
+      toast.error(
+  error.response?.data?.message ||
+  "Failed to create task."
+);
     }
   };
 

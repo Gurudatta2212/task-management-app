@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import Button from "../common/Button";
 import Input from "../common/Input";
+import { toast } from "react-toastify";
 
 function EditTaskModal({
   isOpen,
@@ -50,15 +51,15 @@ function EditTaskModal({
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       fetchTasks();
       onClose();
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          "Failed to update task."
-      );
+      toast.error(
+  error.response?.data?.message ||
+  "Failed to update task."
+);
     }
   };
 

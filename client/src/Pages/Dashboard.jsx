@@ -5,6 +5,7 @@ import AddTaskModal from "../components/task/AddTaskModal";
 import api from "../services/api";
 import TaskCard from "../components/task/TaskCard";
 import EditTaskModal from "../components/task/EditTaskModal";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -12,6 +13,8 @@ function Dashboard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
 const [selectedTask, setSelectedTask] = useState(null);
+const [search, setSearch] = useState("");
+const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     fetchTasks();
@@ -51,14 +54,14 @@ const [selectedTask, setSelectedTask] = useState(null);
       },
     });
 
-    alert(response.data.message);
+    toast.success(response.data.message);
 
     fetchTasks();
   } catch (error) {
-    alert(
-      error.response?.data?.message ||
-        "Failed to delete task."
-    );
+    toast.error(
+  error.response?.data?.message ||
+  "Failed to delete task."
+);
   }
 };
 
@@ -81,14 +84,14 @@ const handleToggleStatus = async (task) => {
       }
     );
 
-    alert(response.data.message);
+    toast.success(response.data.message);
 
     fetchTasks();
   } catch (error) {
-    alert(
-      error.response?.data?.message ||
-        "Failed to update task."
-    );
+    toast.error(
+  error.response?.data?.message ||
+  "Failed to update task."
+);
   }
 };
 
@@ -104,6 +107,17 @@ const handleEdit = (task) => {
   const pending = tasks.filter(
     (task) => task.status === "Pending"
   ).length;
+
+  const filteredTasks = tasks.filter((task) => {
+  const matchesSearch =
+    task.title.toLowerCase().includes(search.toLowerCase()) ||
+    task.description.toLowerCase().includes(search.toLowerCase());
+
+  const matchesFilter =
+    filter === "All" ? true : task.status === filter;
+
+  return matchesSearch && matchesFilter;
+});
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -160,18 +174,38 @@ const handleEdit = (task) => {
             </div>
           </div>
 
+          <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+  <input
+    type="text"
+    placeholder="🔍 Search tasks..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 md:w-96"
+  />
+
+  <select
+    value={filter}
+    onChange={(e) => setFilter(e.target.value)}
+    className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600"
+  >
+    <option value="All">All</option>
+    <option value="Pending">Pending</option>
+    <option value="Completed">Completed</option>
+  </select>
+</div>
+
           {/* Task List */}
           <div className="mt-10 space-y-4">
             {loading ? (
               <div className="rounded-xl bg-white p-6 text-center shadow">
                 Loading...
               </div>
-            ) : tasks.length === 0 ? (
+            ) : filteredTasks.length === 0 ? (
               <div className="rounded-xl bg-white p-6 text-center shadow">
                 No tasks found.
               </div>
             ) : (
-              tasks.map((task) => (
+              filteredTasks.map((task) => (
   <TaskCard
     key={task._id}
     task={task}
