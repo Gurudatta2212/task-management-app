@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import api from "../services/api";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -17,10 +20,34 @@ function Login() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      const response = await api.post("/auth/login", formData);
+
+      console.log(response.data);
+
+      // Save JWT Token
+      localStorage.setItem("token", response.data.token);
+
+      // Save User Data
+      localStorage.setItem(
+        "user",
+        JSON.stringify(response.data.user)
+      );
+
+      alert(response.data.message);
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+      console.log(error.response);
+
+      alert(
+        error.response?.data?.message || "Login failed."
+      );
+    }
   };
 
   return (

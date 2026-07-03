@@ -3,19 +3,19 @@ import Task from "../models/Task.js";
 // Add Task
 export const addTask = async (req, res) => {
   try {
-    const { title, description, user } = req.body;
+    const { title, description } = req.body;
 
-    if (!title || !user) {
+    if (!title) {
       return res.status(400).json({
         success: false,
-        message: "Title and user are required.",
+        message: "Title is required.",
       });
     }
 
     const task = await Task.create({
       title,
       description,
-      user,
+      user: req.user.id,
     });
 
     res.status(201).json({
@@ -36,9 +36,9 @@ export const addTask = async (req, res) => {
 // Get All Tasks
 export const getTasks = async (req, res) => {
   try {
-    const { user } = req.query;
-
-    const tasks = await Task.find({ user }).sort({
+    const tasks = await Task.find({
+      user: req.user.id,
+    }).sort({
       createdAt: -1,
     });
 
@@ -68,6 +68,13 @@ export const updateTask = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Task not found.",
+      });
+    }
+
+    if (task.user.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied.",
       });
     }
 
@@ -103,6 +110,13 @@ export const deleteTask = async (req, res) => {
       return res.status(404).json({
         success: false,
         message: "Task not found.",
+      });
+    }
+
+    if (task.user.toString() !== req.user.id) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied.",
       });
     }
 

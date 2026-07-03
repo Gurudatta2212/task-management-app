@@ -1,10 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import api from "../services/api";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
 
 function Register() {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -19,10 +22,55 @@ function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Register Clicked");
     console.log(formData);
+
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword
+    ) {
+      alert("Please fill all fields.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    try {
+      console.log("Calling Register API...");
+
+      const response = await api.post("/auth/register", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      console.log("SUCCESS:", response.data);
+
+      alert(response.data.message);
+
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error("FULL ERROR:", error);
+      console.error("RESPONSE:", error.response);
+      console.error("DATA:", error.response?.data);
+
+      alert(error.response?.data?.message || error.message);
+    }
   };
 
   return (
@@ -62,7 +110,7 @@ function Register() {
             name="password"
             value={formData.password}
             onChange={handleChange}
-            placeholder="Create a password"
+            placeholder="Create password"
             required
           />
 
@@ -72,7 +120,7 @@ function Register() {
             name="confirmPassword"
             value={formData.confirmPassword}
             onChange={handleChange}
-            placeholder="Confirm your password"
+            placeholder="Confirm password"
             required
           />
 
