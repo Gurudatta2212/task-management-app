@@ -41,13 +41,12 @@ function Login() {
 
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      console.log(error.response);
+  console.log("ERROR:", error);
+  console.log("RESPONSE:", error.response);
+  console.log("DATA:", error.response?.data);
 
-      alert(
-        error.response?.data?.message || "Login failed."
-      );
-    }
+  alert(error.response?.data?.message || error.message);
+}
   };
 
   return (

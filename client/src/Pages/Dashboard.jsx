@@ -32,8 +32,13 @@ const [filter, setFilter] = useState("All");
 
       setTasks(response.data.tasks);
     } catch (error) {
-      console.log(error);
-    } finally {
+  console.error(error);
+
+  toast.error(
+    error.response?.data?.message ||
+      "Failed to load tasks."
+  );
+}finally {
       setLoading(false);
     }
   };
@@ -108,6 +113,11 @@ const handleEdit = (task) => {
     (task) => task.status === "Pending"
   ).length;
 
+  const completionRate =
+  tasks.length === 0
+    ? 0
+    : Math.round((completed / tasks.length) * 100);
+
   const filteredTasks = tasks.filter((task) => {
   const matchesSearch =
     task.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -120,90 +130,115 @@ const handleEdit = (task) => {
 });
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-100">
       <Sidebar />
 
       <div className="flex flex-1 flex-col">
         <Navbar />
 
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-8">
           {/* Header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800">
-                My Tasks
-              </h1>
+          <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+  <div>
+    <h1 className="text-5xl font-extrabold text-gray-900">
+      My Tasks
+    </h1>
 
-              <p className="mt-2 text-gray-600">
-                Manage all your tasks here.
-              </p>
-            </div>
+    <p className="mt-3 text-lg text-gray-500">
+      Organize, track and complete your work efficiently.
+    </p>
+  </div>
 
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="rounded-lg bg-indigo-600 px-5 py-3 font-medium text-white transition hover:bg-indigo-700"
-            >
-              + Add Task
-            </button>
-          </div>
+  <button
+    onClick={() => setIsModalOpen(true)}
+    className="rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-7 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+  >
+    + Add Task
+  </button>
+</div>
 
           {/* Stats */}
-          <div className="mt-8 grid gap-6 md:grid-cols-3">
-            <div className="rounded-xl bg-indigo-600 p-6 text-white shadow">
-              <h3>Total Tasks</h3>
+<div className="grid gap-6 md:grid-cols-3">
+  <div className="rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white shadow-xl">
+    <p className="text-lg opacity-80">
+      Total Tasks
+    </p>
 
-              <p className="mt-3 text-4xl font-bold">
-                {tasks.length}
-              </p>
-            </div>
+    <h2 className="mt-4 text-6xl font-bold">
+      {tasks.length}
+    </h2>
+  </div>
 
-            <div className="rounded-xl bg-yellow-500 p-6 text-white shadow">
-              <h3>Pending</h3>
+  <div className="rounded-3xl bg-gradient-to-r from-orange-400 to-yellow-500 p-8 text-white shadow-xl">
+    <p className="text-lg opacity-80">
+      Pending
+    </p>
 
-              <p className="mt-3 text-4xl font-bold">
-                {pending}
-              </p>
-            </div>
+    <h2 className="mt-4 text-6xl font-bold">
+      {pending}
+    </h2>
+  </div>
 
-            <div className="rounded-xl bg-green-600 p-6 text-white shadow">
-              <h3>Completed</h3>
+  <div className="rounded-3xl bg-gradient-to-r from-green-500 to-emerald-600 p-8 text-white shadow-xl">
+  <p className="text-lg opacity-80">
+    Completed
+  </p>
 
-              <p className="mt-3 text-4xl font-bold">
-                {completed}
-              </p>
-            </div>
-          </div>
+  <h2 className="mt-4 text-6xl font-bold">
+    {completed}
+  </h2>
 
-          <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-  <input
-    type="text"
-    placeholder="🔍 Search tasks..."
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-    className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 md:w-96"
-  />
+  <p className="mt-4 text-lg opacity-80">
+    {completionRate}% Completed
+  </p>
+</div>
+</div>
 
-  <select
-    value={filter}
-    onChange={(e) => setFilter(e.target.value)}
-    className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600"
-  >
-    <option value="All">All</option>
-    <option value="Pending">Pending</option>
-    <option value="Completed">Completed</option>
-  </select>
+          <div className="mt-10 rounded-3xl bg-white p-6 shadow-lg">
+  <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <input
+      type="text"
+      placeholder="🔍 Search tasks..."
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="w-full rounded-xl border border-gray-200 px-5 py-3 shadow-sm outline-none transition focus:border-indigo-500 md:w-96"
+    />
+
+    <select
+      value={filter}
+      onChange={(e) => setFilter(e.target.value)}
+      className="rounded-xl border border-gray-200 px-5 py-3 shadow-sm outline-none transition focus:border-indigo-500"
+    >
+      <option value="All">All</option>
+      <option value="Pending">Pending</option>
+      <option value="Completed">Completed</option>
+    </select>
+  </div>
 </div>
 
           {/* Task List */}
-          <div className="mt-10 space-y-4">
+          <div className="mt-8 space-y-6">
             {loading ? (
-              <div className="rounded-xl bg-white p-6 text-center shadow">
-                Loading...
-              </div>
-            ) : filteredTasks.length === 0 ? (
-              <div className="rounded-xl bg-white p-6 text-center shadow">
-                No tasks found.
-              </div>
+  <div className="flex justify-center py-20">
+    <div className="h-12 w-12 animate-spin rounded-full border-4 border-indigo-600 border-t-transparent"></div>
+  </div>
+) : filteredTasks.length === 0 ? (
+  <div className="rounded-2xl bg-white p-12 text-center shadow-lg">
+    <h2 className="text-2xl font-bold text-gray-700">
+      No Tasks Found
+    </h2>
+
+    <p className="mt-2 text-gray-500">
+      Create your first task to get started.
+    </p>
+
+    <button
+      onClick={() => setIsModalOpen(true)}
+      className="mt-6 rounded-xl bg-indigo-600 px-6 py-3 text-white transition hover:bg-indigo-700"
+    >
+      + Add Task
+    </button>
+  </div>
             ) : (
               filteredTasks.map((task) => (
   <TaskCard

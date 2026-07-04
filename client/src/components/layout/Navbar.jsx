@@ -4,7 +4,7 @@ function Navbar() {
   const user = JSON.parse(localStorage.getItem("user"));
 
   return (
-    <header className="flex h-16 items-center justify-between border-b bg-white px-6 shadow-sm">
+    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-gray-200 bg-white/80 px-8 backdrop-blur-md">
       <div>
         <h2 className="text-2xl font-bold text-gray-800">
           Dashboard
@@ -15,8 +15,8 @@ function Navbar() {
         </p>
       </div>
 
-      <div className="flex items-center gap-3">
-        <FaUserCircle className="text-4xl text-indigo-600" />
+      <div className="flex items-center gap-4">
+        <FaUserCircle className="text-5xl text-indigo-600" />
 
         <div className="text-right">
           <h3 className="font-semibold text-gray-800">

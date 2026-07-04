@@ -16,7 +16,7 @@ function Sidebar() {
   };
 
   return (
-    <aside className="flex h-screen w-64 flex-col border-r bg-white shadow-md">
+    <aside className="flex h-screen w-72 flex-col border-r border-gray-200 bg-white shadow-xl">
       <div className="border-b p-6">
         <h1 className="text-3xl font-bold text-indigo-600">
           Task Manager
