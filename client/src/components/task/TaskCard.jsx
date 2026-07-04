@@ -4,6 +4,22 @@ import {
   FaCheck,
 } from "react-icons/fa";
 
+const getPriorityColor = (priority) => {
+  switch (priority) {
+    case "High":
+      return "bg-red-100 text-red-700";
+
+    case "Medium":
+      return "bg-yellow-100 text-yellow-700";
+
+    case "Low":
+      return "bg-green-100 text-green-700";
+
+    default:
+      return "bg-gray-100 text-gray-700";
+  }
+};
+
 function TaskCard({
   task,
   onEdit,
@@ -31,15 +47,25 @@ function TaskCard({
 </p>
         </div>
 
-        <span
-          className={`rounded-full px-4 py-2 text-sm font-semibold ${
-            task.status === "Completed"
-              ? "bg-green-100 text-green-700"
-              : "bg-yellow-100 text-yellow-700"
-          }`}
-        >
-          {task.status}
-        </span>
+       <div className="flex flex-col items-end gap-2">
+  <span
+    className={`rounded-full px-4 py-2 text-sm font-semibold ${
+      task.status === "Completed"
+        ? "bg-green-100 text-green-700"
+        : "bg-yellow-100 text-yellow-700"
+    }`}
+  >
+    {task.status}
+  </span>
+
+  <span
+    className={`rounded-full px-4 py-2 text-sm font-semibold ${getPriorityColor(
+      task.priority
+    )}`}
+  >
+    {task.priority}
+  </span>
+</div>
       </div>
 
       {/* Divider */}

@@ -13,6 +13,7 @@ function EditTaskModal({
   const [formData, setFormData] = useState({
     title: "",
     description: "",
+    priority: "Medium",
     status: "Pending",
   });
 
@@ -21,6 +22,7 @@ function EditTaskModal({
       setFormData({
         title: task.title,
         description: task.description,
+        priority: task.priority || "Medium",
         status: task.status,
       });
     }
@@ -57,9 +59,9 @@ function EditTaskModal({
       onClose();
     } catch (error) {
       toast.error(
-  error.response?.data?.message ||
-  "Failed to update task."
-);
+        error.response?.data?.message ||
+          "Failed to update task."
+      );
     }
   };
 
@@ -94,6 +96,23 @@ function EditTaskModal({
               onChange={handleChange}
               className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
             />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium">
+              Priority
+            </label>
+
+            <select
+              name="priority"
+              value={formData.priority}
+              onChange={handleChange}
+              className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
+            >
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
           </div>
 
           <div className="flex flex-col gap-2">

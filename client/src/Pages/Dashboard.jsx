@@ -12,9 +12,10 @@ function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
-const [selectedTask, setSelectedTask] = useState(null);
-const [search, setSearch] = useState("");
-const [filter, setFilter] = useState("All");
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [sortBy, setSortBy] = useState("Newest");
 
   useEffect(() => {
     fetchTasks();
@@ -118,16 +119,53 @@ const handleEdit = (task) => {
     ? 0
     : Math.round((completed / tasks.length) * 100);
 
-  const filteredTasks = tasks.filter((task) => {
-  const matchesSearch =
-    task.title.toLowerCase().includes(search.toLowerCase()) ||
-    task.description.toLowerCase().includes(search.toLowerCase());
+  const filteredTasks = tasks
+  .filter((task) => {
+    const matchesSearch =
+      task.title
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      task.description
+        .toLowerCase()
+        .includes(search.toLowerCase());
 
-  const matchesFilter =
-    filter === "All" ? true : task.status === filter;
+    const matchesFilter =
+      filter === "All"
+        ? true
+        : task.status === filter;
 
-  return matchesSearch && matchesFilter;
-});
+    return matchesSearch && matchesFilter;
+  })
+  .sort((a, b) => {
+    if (sortBy === "Newest") {
+      return (
+        new Date(b.createdAt) -
+        new Date(a.createdAt)
+      );
+    }
+
+    if (sortBy === "Oldest") {
+      return (
+        new Date(a.createdAt) -
+        new Date(b.createdAt)
+      );
+    }
+
+    if (sortBy === "Priority") {
+      const order = {
+        High: 3,
+        Medium: 2,
+        Low: 1,
+      };
+
+      return (
+        order[b.priority] -
+        order[a.priority]
+      );
+    }
+
+    return 0;
+  });
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-100">
@@ -213,6 +251,25 @@ const handleEdit = (task) => {
       <option value="Pending">Pending</option>
       <option value="Completed">Completed</option>
     </select>
+
+<select
+  value={sortBy}
+  onChange={(e) => setSortBy(e.target.value)}
+  className="rounded-xl border border-gray-200 px-5 py-3 shadow-sm outline-none transition focus:border-indigo-500"
+>
+  <option value="Newest">
+    Newest
+  </option>
+
+  <option value="Oldest">
+    Oldest
+  </option>
+
+  <option value="Priority">
+    Priority
+  </option>
+</select>
+
   </div>
 </div>
 

@@ -3,7 +3,7 @@ import Task from "../models/Task.js";
 // Add Task
 export const addTask = async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description, priority, } = req.body;
 
     if (!title) {
       return res.status(400).json({
@@ -15,6 +15,7 @@ export const addTask = async (req, res) => {
     const task = await Task.create({
       title,
       description,
+      priority,
       user: req.user.id,
     });
 
@@ -60,7 +61,7 @@ export const getTasks = async (req, res) => {
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, status } = req.body;
+    const { title, description, status, priority, } = req.body;
 
     const task = await Task.findById(id);
 
@@ -80,7 +81,7 @@ export const updateTask = async (req, res) => {
 
     task.title = title ?? task.title;
     task.description = description ?? task.description;
-    task.status = status ?? task.status;
+    task.priority = priority ?? task.priority;
 
     await task.save();
 
