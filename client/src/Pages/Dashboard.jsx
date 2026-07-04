@@ -6,6 +6,7 @@ import api from "../services/api";
 import TaskCard from "../components/task/TaskCard";
 import EditTaskModal from "../components/task/EditTaskModal";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -16,6 +17,8 @@ function Dashboard() {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
   const [sortBy, setSortBy] = useState("Newest");
+  const [isSidebarOpen, setIsSidebarOpen] =
+  useState(false);
 
   useEffect(() => {
     fetchTasks();
@@ -125,9 +128,9 @@ const handleEdit = (task) => {
       task.title
         .toLowerCase()
         .includes(search.toLowerCase()) ||
-      task.description
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      (task.description || "")
+  .toLowerCase()
+  .includes(search.toLowerCase())
 
     const matchesFilter =
       filter === "All"
@@ -169,14 +172,24 @@ const handleEdit = (task) => {
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-100">
-      <Sidebar />
+      <Sidebar
+  isOpen={isSidebarOpen}
+  setIsOpen={setIsSidebarOpen}
+/>
 
       <div className="flex flex-1 flex-col">
-        <Navbar />
+        <Navbar
+  setIsSidebarOpen={setIsSidebarOpen}
+/>
 
         <main className="flex-1 p-8">
           {/* Header */}
-          <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+          <motion.div
+  initial={{ opacity: 0, y: -30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+  className="mb-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between"
+>
   <div>
     <h1 className="text-5xl font-extrabold text-gray-900">
       My Tasks
@@ -187,16 +200,24 @@ const handleEdit = (task) => {
     </p>
   </div>
 
-  <button
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
     onClick={() => setIsModalOpen(true)}
-    className="rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-7 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+    className="rounded-2xl bg-gradient-to-r from-indigo-600 to-blue-600 px-7 py-4 text-lg font-semibold text-white shadow-lg"
   >
     + Add Task
-  </button>
-</div>
+  </motion.button>
+</motion.div>
+
 
           {/* Stats */}
-<div className="grid gap-6 md:grid-cols-3">
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.2 }}
+  className="grid gap-6 md:grid-cols-3"
+>
   <div className="rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white shadow-xl">
     <p className="text-lg opacity-80">
       Total Tasks
@@ -218,19 +239,19 @@ const handleEdit = (task) => {
   </div>
 
   <div className="rounded-3xl bg-gradient-to-r from-green-500 to-emerald-600 p-8 text-white shadow-xl">
-  <p className="text-lg opacity-80">
-    Completed
-  </p>
+    <p className="text-lg opacity-80">
+      Completed
+    </p>
 
-  <h2 className="mt-4 text-6xl font-bold">
-    {completed}
-  </h2>
+    <h2 className="mt-4 text-6xl font-bold">
+      {completed}
+    </h2>
 
-  <p className="mt-4 text-lg opacity-80">
-    {completionRate}% Completed
-  </p>
-</div>
-</div>
+    <p className="mt-4 text-lg opacity-80">
+      {completionRate}% Completed
+    </p>
+  </div>
+</motion.div>
 
           <div className="mt-10 rounded-3xl bg-white p-6 shadow-lg">
   <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -289,12 +310,14 @@ const handleEdit = (task) => {
       Create your first task to get started.
     </p>
 
-    <button
-      onClick={() => setIsModalOpen(true)}
-      className="mt-6 rounded-xl bg-indigo-600 px-6 py-3 text-white transition hover:bg-indigo-700"
-    >
-      + Add Task
-    </button>
+    <motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  onClick={() => setIsModalOpen(true)}
+  className="mt-6 rounded-xl bg-indigo-600 px-6 py-3 text-white transition hover:bg-indigo-700"
+>
+  + Add Task
+</motion.button>
   </div>
             ) : (
               filteredTasks.map((task) => (

@@ -1,11 +1,12 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import { FaTimes } from "react-icons/fa";
 import {
   FaTasks,
   FaUser,
   FaSignOutAlt,
 } from "react-icons/fa";
 
-function Sidebar() {
+function Sidebar({ isOpen, setIsOpen }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -16,11 +17,21 @@ function Sidebar() {
   };
 
   return (
-    <aside className="flex h-screen w-72 flex-col border-r border-gray-200 bg-white shadow-xl">
-      <div className="border-b p-6">
+    <aside
+  className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col border-r border-gray-200 bg-white shadow-xl transition-transform duration-300 md:static md:translate-x-0 ${
+    isOpen ? "translate-x-0" : "-translate-x-full"
+  }`}
+>
+      <div className="flex items-center justify-between border-b p-6">
         <h1 className="text-3xl font-bold text-indigo-600">
           Task Manager
         </h1>
+        <button
+  onClick={() => setIsOpen(false)}
+  className="text-2xl md:hidden"
+>
+  <FaTimes />
+</button>
       </div>
 
       <nav className="flex-1 p-4">

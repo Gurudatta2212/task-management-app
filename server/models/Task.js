@@ -26,6 +26,10 @@ priority: {
   default: "Medium",
 },
 
+dueDate: {
+  type: Date,
+},
+
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

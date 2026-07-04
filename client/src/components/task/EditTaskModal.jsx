@@ -14,17 +14,21 @@ function EditTaskModal({
     title: "",
     description: "",
     priority: "Medium",
+    dueDate: "",
     status: "Pending",
   });
 
   useEffect(() => {
     if (task) {
       setFormData({
-        title: task.title,
-        description: task.description,
-        priority: task.priority || "Medium",
-        status: task.status,
-      });
+  title: task.title,
+  description: task.description,
+  priority: task.priority || "Medium",
+  dueDate: task.dueDate
+    ? task.dueDate.split("T")[0]
+    : "",
+  status: task.status,
+});
     }
   }, [task]);
 
@@ -114,6 +118,20 @@ function EditTaskModal({
               <option value="Low">Low</option>
             </select>
           </div>
+
+          <div className="flex flex-col gap-2">
+  <label className="text-sm font-medium">
+    Due Date
+  </label>
+
+  <input
+    type="date"
+    name="dueDate"
+    value={formData.dueDate}
+    onChange={handleChange}
+    className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
+  />
+</div>
 
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium">

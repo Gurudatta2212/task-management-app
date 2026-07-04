@@ -10,6 +10,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
     title: "",
     description: "",
     priority: "Medium",
+    dueDate: "",
   });
 
   if (!isOpen) return null;
@@ -43,6 +44,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
         title: "",
         description: "",
         priority: "Medium",
+        dueDate: "",
       });
 
       fetchTasks();
@@ -110,6 +112,20 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
               <option value="Low">Low</option>
             </select>
           </div>
+
+          <div className="flex flex-col gap-2">
+  <label className="text-sm font-medium text-gray-700">
+    Due Date
+  </label>
+
+  <input
+    type="date"
+    name="dueDate"
+    value={formData.dueDate}
+    onChange={handleChange}
+    className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
+  />
+</div>
 
           <div className="flex justify-end gap-3">
             <Button
