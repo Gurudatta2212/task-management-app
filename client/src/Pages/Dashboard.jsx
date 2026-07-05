@@ -7,6 +7,7 @@ import TaskCard from "../components/task/TaskCard";
 import EditTaskModal from "../components/task/EditTaskModal";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import TaskChart from "../components/dashboard/TaskChart";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -292,6 +293,13 @@ const handleEdit = (task) => {
 </select>
 
   </div>
+</div>
+
+<div className="mt-10">
+  <TaskChart
+    pending={pending}
+    completed={completed}
+  />
 </div>
 
           {/* Task List */}

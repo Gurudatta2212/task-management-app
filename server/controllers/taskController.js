@@ -81,9 +81,10 @@ export const updateTask = async (req, res) => {
     }
 
     task.title = title ?? task.title;
-    task.description = description ?? task.description;
-    task.priority = priority ?? task.priority;
-    task.dueDate = dueDate ?? task.dueDate;
+task.description = description ?? task.description;
+task.status = status ?? task.status;
+task.priority = priority ?? task.priority;
+task.dueDate = dueDate ?? task.dueDate;
 
     await task.save();
 
