@@ -8,6 +8,8 @@ import EditTaskModal from "../components/task/EditTaskModal";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
 import TaskChart from "../components/dashboard/TaskChart";
+import TaskPieChart from "../components/analytics/TaskPieChart";
+import PriorityChart from "../components/analytics/PriorityChart";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
@@ -122,6 +124,41 @@ const handleEdit = (task) => {
   tasks.length === 0
     ? 0
     : Math.round((completed / tasks.length) * 100);
+
+    const highPriority = tasks.filter(
+  (task) => task.priority === "High"
+).length;
+
+const overdueTasks = tasks.filter(
+  (task) =>
+    task.dueDate &&
+    task.status !== "Completed" &&
+    new Date(task.dueDate) < new Date()
+).length;
+
+const dueToday = tasks.filter((task) => {
+  if (!task.dueDate) return false;
+
+  const today = new Date();
+  const due = new Date(task.dueDate);
+
+  return (
+    today.toDateString() === due.toDateString()
+  );
+}).length;
+
+const upcomingTasks = tasks
+  .filter(
+    (task) =>
+      task.dueDate &&
+      task.status !== "Completed" &&
+      new Date(task.dueDate) >= new Date()
+  )
+  .sort(
+    (a, b) =>
+      new Date(a.dueDate) - new Date(b.dueDate)
+  )
+  .slice(0, 5);
 
   const filteredTasks = tasks
   .filter((task) => {
@@ -300,6 +337,125 @@ const handleEdit = (task) => {
     pending={pending}
     completed={completed}
   />
+</div>
+
+<div className="mt-8 grid gap-6 md:grid-cols-4">
+
+  <div className="rounded-2xl bg-red-500 p-6 text-white shadow-lg">
+    <p>🔥 High Priority</p>
+    <h2 className="mt-3 text-4xl font-bold">
+      {highPriority}
+    </h2>
+  </div>
+
+  <div className="rounded-2xl bg-orange-500 p-6 text-white shadow-lg">
+    <p>⚠️ Overdue</p>
+    <h2 className="mt-3 text-4xl font-bold">
+      {overdueTasks}
+    </h2>
+  </div>
+
+  <div className="rounded-2xl bg-blue-500 p-6 text-white shadow-lg">
+    <p>📅 Due Today</p>
+    <h2 className="mt-3 text-4xl font-bold">
+      {dueToday}
+    </h2>
+  </div>
+
+  <div className="rounded-2xl bg-green-600 p-6 text-white shadow-lg">
+    <p>📈 Completion</p>
+    <h2 className="mt-3 text-4xl font-bold">
+      {completionRate}%
+    </h2>
+  </div>
+
+</div>
+
+<div className="mt-10 grid gap-6 lg:grid-cols-2">
+  <TaskPieChart tasks={tasks} />
+
+  <PriorityChart tasks={tasks} />
+</div>
+
+<div className="mt-10 rounded-3xl bg-white p-6 shadow-lg">
+  <h2 className="mb-5 text-2xl font-bold text-gray-800">
+    Recent Activity
+  </h2>
+
+  <div className="space-y-4">
+    {tasks.slice(0, 5).map((task) => (
+      <div
+        key={task._id}
+        className="flex items-center justify-between rounded-xl border border-gray-100 p-4"
+      >
+        <div>
+          <h3 className="font-semibold text-gray-800">
+            {task.title}
+          </h3>
+
+          <p className="text-sm text-gray-500">
+            {new Date(task.createdAt).toLocaleString()}
+          </p>
+        </div>
+
+        <span
+          className={`rounded-full px-4 py-2 text-sm font-semibold ${
+            task.status === "Completed"
+              ? "bg-green-100 text-green-700"
+              : "bg-yellow-100 text-yellow-700"
+          }`}
+        >
+          {task.status}
+        </span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<div className="mt-8 rounded-3xl bg-white p-6 shadow-lg">
+  <h2 className="mb-5 text-2xl font-bold text-gray-800">
+    Upcoming Deadlines
+  </h2>
+
+  {upcomingTasks.length === 0 ? (
+    <p className="text-gray-500">
+      No upcoming deadlines.
+    </p>
+  ) : (
+    <div className="space-y-4">
+      {upcomingTasks.map((task) => (
+        <div
+          key={task._id}
+          className="flex items-center justify-between rounded-xl border border-gray-100 p-4"
+        >
+          <div>
+            <h3 className="font-semibold">
+              {task.title}
+            </h3>
+
+            <p className="text-sm text-gray-500">
+              Due{" "}
+              {new Date(
+                task.dueDate
+              ).toLocaleDateString()}
+            </p>
+          </div>
+
+          <span
+            className={`rounded-full px-4 py-2 text-sm font-semibold ${
+              task.priority === "High"
+                ? "bg-red-100 text-red-700"
+                : task.priority === "Medium"
+                ? "bg-orange-100 text-orange-700"
+                : "bg-green-100 text-green-700"
+            }`}
+          >
+            {task.priority}
+          </span>
+        </div>
+      ))}
+    </div>
+  )}
 </div>
 
           {/* Task List */}
