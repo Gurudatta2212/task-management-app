@@ -209,18 +209,18 @@ const upcomingTasks = tasks
   });
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-100">
+    <div className="flex h-screen overflow-hidden bg-gradient-to-br from-slate-100 via-indigo-50 to-blue-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
       <Sidebar
   isOpen={isSidebarOpen}
   setIsOpen={setIsSidebarOpen}
 />
 
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col overflow-hidden md:ml-72">
         <Navbar
   setIsSidebarOpen={setIsSidebarOpen}
 />
 
-        <main className="flex-1 p-8">
+        <main className="flex-1 overflow-y-auto p-8">
           {/* Header */}
           <motion.div
   initial={{ opacity: 0, y: -30 }}
@@ -229,11 +229,11 @@ const upcomingTasks = tasks
   className="mb-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between"
 >
   <div>
-    <h1 className="text-5xl font-extrabold text-gray-900">
+    <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white">
       My Tasks
     </h1>
 
-    <p className="mt-3 text-lg text-gray-500">
+    <p className="mt-3 text-lg text-gray-900 dark:text-white">
       Organize, track and complete your work efficiently.
     </p>
   </div>
@@ -256,7 +256,7 @@ const upcomingTasks = tasks
   transition={{ delay: 0.2 }}
   className="grid gap-6 md:grid-cols-3"
 >
-  <div className="rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-600 p-8 text-white shadow-xl">
+  <div className="rounded-3xl bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white shadow-xl">
     <p className="text-lg opacity-80">
       Total Tasks
     </p>
@@ -266,7 +266,7 @@ const upcomingTasks = tasks
     </h2>
   </div>
 
-  <div className="rounded-3xl bg-gradient-to-r from-orange-400 to-yellow-500 p-8 text-white shadow-xl">
+  <div className="rounded-3xl bg-gradient-to-r from-orange-400 to-yellow-500 p-6 text-white shadow-xl">
     <p className="text-lg opacity-80">
       Pending
     </p>
@@ -276,7 +276,7 @@ const upcomingTasks = tasks
     </h2>
   </div>
 
-  <div className="rounded-3xl bg-gradient-to-r from-green-500 to-emerald-600 p-8 text-white shadow-xl">
+  <div className="rounded-3xl bg-gradient-to-r from-green-500 to-emerald-600 p-6 text-white shadow-xl">
     <p className="text-lg opacity-80">
       Completed
     </p>

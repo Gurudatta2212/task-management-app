@@ -1,49 +1,77 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
 import {
   FaTasks,
   FaUser,
   FaSignOutAlt,
+  FaTimes,
+  FaUserCircle,
 } from "react-icons/fa";
 
 function Sidebar({ isOpen, setIsOpen }) {
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
     navigate("/");
   };
 
   return (
     <aside
-  className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col border-r border-gray-200 bg-white shadow-xl transition-transform duration-300 md:static md:translate-x-0 ${
-    isOpen ? "translate-x-0" : "-translate-x-full"
-  }`}
->
-      <div className="flex items-center justify-between border-b p-6">
-        <h1 className="text-3xl font-bold text-indigo-600">
-          Task Manager
-        </h1>
+      className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-shrink-0 flex-col border-r border-gray-200 bg-white shadow-2xl transition-transform duration-300 dark:border-slate-700 dark:bg-slate-900 md:fixed md:left-0 md:top-0 md:translate-x-0 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      {/* Header */}
+
+      <div className="flex items-center justify-between border-b border-gray-200 p-6 dark:border-slate-700">
+        <div>
+          <h1 className="text-3xl font-extrabold text-indigo-600">
+            Task Manager
+          </h1>
+
+          <p className="mt-1 text-xs text-slate-400">
+            Productivity Dashboard
+          </p>
+        </div>
+
         <button
-  onClick={() => setIsOpen(false)}
-  className="text-2xl md:hidden"
->
-  <FaTimes />
-</button>
+          onClick={() => setIsOpen(false)}
+          className="text-2xl text-gray-700 dark:text-white md:hidden"
+        >
+          <FaTimes />
+        </button>
       </div>
 
+      {/* User */}
+
+      <div className="flex items-center gap-4 border-b border-gray-200 p-5 dark:border-slate-700">
+        <FaUserCircle className="text-5xl text-indigo-600" />
+
+        <div>
+          <h3 className="font-semibold text-gray-800 dark:text-white">
+            {user?.name}
+          </h3>
+
+          <p className="text-xs text-slate-500 dark:text-slate-400">
+            {user?.email}
+          </p>
+        </div>
+      </div>
+
+      {/* Navigation */}
+
       <nav className="flex-1 p-4">
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           <li>
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-4 py-3 transition ${
+                `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
                   isActive
-                    ? "bg-indigo-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
                 }`
               }
             >
@@ -56,10 +84,10 @@ function Sidebar({ isOpen, setIsOpen }) {
             <NavLink
               to="/profile"
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-lg px-4 py-3 transition ${
+                `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
                   isActive
-                    ? "bg-indigo-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
                 }`
               }
             >
@@ -70,10 +98,12 @@ function Sidebar({ isOpen, setIsOpen }) {
         </ul>
       </nav>
 
-      <div className="border-t p-4">
+      {/* Logout */}
+
+      <div className="border-t border-gray-200 p-4 dark:border-slate-700">
         <button
           onClick={handleLogout}
-          className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-red-600 transition hover:bg-red-50"
+          className="flex w-full items-center justify-center gap-3 rounded-xl bg-red-50 px-4 py-3 font-semibold text-red-600 transition hover:bg-red-600 hover:text-white dark:bg-red-900/20"
         >
           <FaSignOutAlt />
           Logout

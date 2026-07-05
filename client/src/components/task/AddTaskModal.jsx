@@ -59,12 +59,12 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl">
-        <h2 className="text-2xl font-bold text-gray-800">
+      <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl dark:bg-slate-900">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
           Add New Task
         </h2>
 
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-gray-500 dark:text-slate-300">
           Create a new task to manage your work.
         </p>
 
@@ -82,7 +82,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
           />
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-gray-700 dark:text-white">
               Description
             </label>
 
@@ -92,12 +92,12 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
               onChange={handleChange}
               rows="4"
               placeholder="Enter task description"
-              className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
+              className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             />
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-gray-700 dark:text-white">
               Priority
             </label>
 
@@ -105,7 +105,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
               name="priority"
               value={formData.priority}
               onChange={handleChange}
-              className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
+              className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             >
               <option value="High">High</option>
               <option value="Medium">Medium</option>
@@ -114,7 +114,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
           </div>
 
           <div className="flex flex-col gap-2">
-  <label className="text-sm font-medium text-gray-700">
+  <label className="text-sm font-medium text-gray-700 dark:text-white">
     Due Date
   </label>
 
@@ -123,7 +123,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
     name="dueDate"
     value={formData.dueDate}
     onChange={handleChange}
-    className="rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"
+    className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
   />
 </div>
 

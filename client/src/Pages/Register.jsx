@@ -74,13 +74,13 @@ function Register() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-5">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-900">
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-5 dark:bg-slate-950">
+      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg dark:bg-slate-900">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Create Account
         </h1>
 
-        <p className="mt-2 text-gray-500">
+        <p className="mt-2 text-gray-500 dark:text-slate-300">
           Register to manage your tasks.
         </p>
 
@@ -129,7 +129,7 @@ function Register() {
           </Button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600">
+        <p className="mt-6 text-center text-sm text-gray-600 dark:text-slate-300">
           Already have an account?{" "}
           <Link
             to="/"
