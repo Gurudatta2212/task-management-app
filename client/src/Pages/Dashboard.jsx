@@ -2,11 +2,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import Navbar from "../components/layout/Navbar";
 import AddTaskModal from "../components/task/AddTaskModal";
-import api from "../services/api";
-import TaskCard from "../components/task/TaskCard";
 import EditTaskModal from "../components/task/EditTaskModal";
-import { toast } from "react-toastify";
-import { motion } from "framer-motion";
 import TaskChart from "../components/dashboard/TaskChart";
 import TaskPieChart from "../components/analytics/TaskPieChart";
 import PriorityChart from "../components/analytics/PriorityChart";
@@ -23,7 +19,7 @@ import useTasks from "../hooks/useTasks";
 import useTaskAnalytics from "../hooks/useTaskAnalytics";
 
 function Dashboard() {
-  const { tasks, setTasks, loading, fetchTasks, handleDelete, handleToggleStatus,} = useTasks();
+  const { tasks, loading, fetchTasks, handleDelete, handleToggleStatus,} = useTasks();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
@@ -36,63 +32,6 @@ function Dashboard() {
   useEffect(() => {
     fetchTasks();
   }, []);
-
-  const handleDelete = async (id) => {
-  const confirmDelete = window.confirm(
-    "Are you sure you want to delete this task?"
-  );
-
-  if (!confirmDelete) return;
-
-  try {
-    const token = localStorage.getItem("token");
-
-    const response = await api.delete(`/tasks/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    toast.success(response.data.message);
-
-    fetchTasks();
-  } catch (error) {
-    toast.error(
-  error.response?.data?.message ||
-  "Failed to delete task."
-);
-  }
-};
-
-const handleToggleStatus = async (task) => {
-  try {
-    const token = localStorage.getItem("token");
-
-    const response = await api.put(
-      `/tasks/${task._id}`,
-      {
-        status:
-          task.status === "Pending"
-            ? "Completed"
-            : "Pending",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    toast.success(response.data.message);
-
-    fetchTasks();
-  } catch (error) {
-    toast.error(
-  error.response?.data?.message ||
-  "Failed to update task."
-);
-  }
-};
 
 const handleEdit = (task) => {
   setSelectedTask(task);
@@ -171,8 +110,8 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
   setIsModalOpen={setIsModalOpen}
 />
 
-        </main>
-      </div>
+  </main>
+</div>
 
       {/* Modal */}
       <AddTaskModal
