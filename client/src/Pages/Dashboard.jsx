@@ -50,6 +50,7 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
       <div className="flex flex-1 flex-col overflow-hidden md:ml-72">
         <Navbar
   setIsSidebarOpen={setIsSidebarOpen}
+  tasks={tasks}
 />
 
         <main className="flex-1 overflow-y-auto p-8">
