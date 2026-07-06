@@ -19,6 +19,7 @@ import useTasks from "../hooks/useTasks";
 import useTaskAnalytics from "../hooks/useTaskAnalytics";
 
 import CalendarView from "../components/calendar/CalendarView";
+import exportTasksPdf from "../utils/exportPdf";
 
 function Dashboard() {
   const { tasks, loading, fetchTasks, handleDelete, handleToggleStatus,} = useTasks();
@@ -59,6 +60,7 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
       
         <DashboardHeader
   setIsModalOpen={setIsModalOpen}
+  onExportPdf={() => exportTasksPdf(tasks)}
 />
 
           <StatsCards
@@ -108,14 +110,16 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
   <CalendarView tasks={tasks} />
 </div>
 
-          <TaskList
-  loading={loading}
-  tasks={filteredTasks}
-  onDelete={handleDelete}
-  onEdit={handleEdit}
-  onToggleStatus={handleToggleStatus}
-  setIsModalOpen={setIsModalOpen}
-/>
+          <div className="mt-14">
+  <TaskList
+    loading={loading}
+    tasks={filteredTasks}
+    onDelete={handleDelete}
+    onEdit={handleEdit}
+    onToggleStatus={handleToggleStatus}
+    setIsModalOpen={setIsModalOpen}
+  />
+</div>
 
   </main>
 </div>
