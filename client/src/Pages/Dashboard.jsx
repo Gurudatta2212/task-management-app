@@ -18,6 +18,8 @@ import UpcomingDeadlines from "../components/dashboard/UpcomingDeadlines";
 import useTasks from "../hooks/useTasks";
 import useTaskAnalytics from "../hooks/useTaskAnalytics";
 
+import CalendarView from "../components/calendar/CalendarView";
+
 function Dashboard() {
   const { tasks, loading, fetchTasks, handleDelete, handleToggleStatus,} = useTasks();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -101,6 +103,10 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
 <UpcomingDeadlines
   upcomingTasks={upcomingTasks}
 />
+
+<div className="mt-10">
+  <CalendarView tasks={tasks} />
+</div>
 
           <TaskList
   loading={loading}
