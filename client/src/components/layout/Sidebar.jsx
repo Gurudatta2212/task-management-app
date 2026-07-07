@@ -5,6 +5,9 @@ import {
   FaSignOutAlt,
   FaTimes,
   FaUserCircle,
+  FaHistory,
+  FaCalendarAlt,
+  FaRegCalendarAlt,
 } from "react-icons/fa";
 
 function Sidebar({ isOpen, setIsOpen }) {
@@ -44,22 +47,6 @@ function Sidebar({ isOpen, setIsOpen }) {
         </button>
       </div>
 
-      {/* User */}
-
-      <div className="flex items-center gap-4 border-b border-gray-200 p-5 dark:border-slate-700">
-        <FaUserCircle className="text-5xl text-indigo-600" />
-
-        <div>
-          <h3 className="font-semibold text-gray-800 dark:text-white">
-            {user?.name}
-          </h3>
-
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            {user?.email}
-          </p>
-        </div>
-      </div>
-
       {/* Navigation */}
 
       <nav className="flex-1 p-4">
@@ -79,6 +66,54 @@ function Sidebar({ isOpen, setIsOpen }) {
               Dashboard
             </NavLink>
           </li>
+
+        <li>
+  <NavLink
+    to="/recent-activity"
+    className={({ isActive }) =>
+      `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
+        isActive
+          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+          : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
+      }`
+    }
+  >
+    <FaHistory />
+    Recent Activity
+  </NavLink>
+</li>
+
+<li>
+  <NavLink
+    to="/upcoming-deadlines"
+    className={({ isActive }) =>
+      `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
+        isActive
+          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+          : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
+      }`
+    }
+  >
+    <FaCalendarAlt />
+    Upcoming Deadlines
+  </NavLink>
+</li>
+
+<li>
+  <NavLink
+    to="/task-calendar"
+    className={({ isActive }) =>
+      `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
+        isActive
+          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+          : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
+      }`
+    }
+  >
+    <FaRegCalendarAlt />
+    Task Calendar
+  </NavLink>
+</li>
 
           <li>
             <NavLink

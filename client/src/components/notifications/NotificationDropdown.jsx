@@ -29,91 +29,112 @@ function NotificationDropdown({
       }}
       transition={{
         duration: 0.25,
-        ease: "easeOut",
       }}
       className="absolute right-0 top-14 z-50 w-96 rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl dark:border-slate-700 dark:bg-slate-900"
     >
-      <h2 className="mb-4 text-xl font-bold text-gray-800 dark:text-white">
+      <h2 className="mb-5 text-xl font-bold text-gray-800 dark:text-white">
         Notifications
       </h2>
 
-      <div className="max-h-96 space-y-3 overflow-y-auto">
+      <div className="max-h-96 space-y-4 overflow-y-auto">
 
-        {overdue.map((task) => (
-          <div
-            key={`overdue-${task._id}`}
-            className="flex items-start gap-3 rounded-xl bg-red-50 p-3 dark:bg-red-900/20"
-          >
-            <FaExclamationTriangle className="mt-1 text-red-600" />
+        {/* High Priority */}
 
-            <div>
-              <h3 className="font-semibold text-red-700 dark:text-red-300">
-                Overdue Task
-              </h3>
+        {highPriority.length > 0 && (
+          <>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-orange-600">
+              High Priority
+            </h3>
 
-              <p className="text-sm text-gray-600 dark:text-slate-300">
-                <span className="font-medium">
-                  {task.title}
-                </span>{" "}
-                is overdue.
-              </p>
-            </div>
-          </div>
-        ))}
+            {highPriority.map((task) => (
+              <div
+                key={task._id}
+                className="flex items-start gap-3 rounded-xl bg-orange-50 p-3 dark:bg-orange-900/20"
+              >
+                <FaFire className="mt-1 text-orange-600" />
 
-        {dueToday.map((task) => (
-          <div
-            key={`today-${task._id}`}
-            className="flex items-start gap-3 rounded-xl bg-yellow-50 p-3 dark:bg-yellow-900/20"
-          >
-            <FaCalendarDay className="mt-1 text-yellow-600" />
+                <div>
+                  <p className="font-semibold text-orange-700 dark:text-orange-300">
+                    {task.title}
+                  </p>
 
-            <div>
-              <h3 className="font-semibold text-yellow-700 dark:text-yellow-300">
-                Due Today
-              </h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    Needs your immediate attention.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
 
-              <p className="text-sm text-gray-600 dark:text-slate-300">
-                <span className="font-medium">
-                  {task.title}
-                </span>{" "}
-                is due today.
-              </p>
-            </div>
-          </div>
-        ))}
+        {/* Due Today */}
 
-        {highPriority.map((task) => (
-          <div
-            key={`priority-${task._id}`}
-            className="flex items-start gap-3 rounded-xl bg-orange-50 p-3 dark:bg-orange-900/20"
-          >
-            <FaFire className="mt-1 text-orange-600" />
+        {dueToday.length > 0 && (
+          <>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-yellow-600">
+              Due Today
+            </h3>
 
-            <div>
-              <h3 className="font-semibold text-orange-700 dark:text-orange-300">
-                High Priority
-              </h3>
+            {dueToday.map((task) => (
+              <div
+                key={task._id}
+                className="flex items-start gap-3 rounded-xl bg-yellow-50 p-3 dark:bg-yellow-900/20"
+              >
+                <FaCalendarDay className="mt-1 text-yellow-600" />
 
-              <p className="text-sm text-gray-600 dark:text-slate-300">
-                <span className="font-medium">
-                  {task.title}
-                </span>{" "}
-                needs your attention.
-              </p>
-            </div>
-          </div>
-        ))}
+                <div>
+                  <p className="font-semibold text-yellow-700 dark:text-yellow-300">
+                    {task.title}
+                  </p>
 
-        {overdue.length === 0 &&
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    Due today.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+
+        {/* Overdue */}
+
+        {overdue.length > 0 && (
+          <>
+            <h3 className="text-sm font-bold uppercase tracking-wide text-red-600">
+              Overdue
+            </h3>
+
+            {overdue.map((task) => (
+              <div
+                key={task._id}
+                className="flex items-start gap-3 rounded-xl bg-red-50 p-3 dark:bg-red-900/20"
+              >
+                <FaExclamationTriangle className="mt-1 text-red-600" />
+
+                <div>
+                  <p className="font-semibold text-red-700 dark:text-red-300">
+                    {task.title}
+                  </p>
+
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    Task is overdue.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
+
+        {highPriority.length === 0 &&
           dueToday.length === 0 &&
-          highPriority.length === 0 && (
-            <div className="py-8 text-center">
-              <p className="text-gray-500 dark:text-slate-400">
-                 No new notifications
+          overdue.length === 0 && (
+            <div className="py-10 text-center">
+              <p className="text-slate-500 dark:text-slate-400">
+                🎉 You're all caught up!
               </p>
             </div>
           )}
+
       </div>
     </motion.div>
   );

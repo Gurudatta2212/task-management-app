@@ -6,6 +6,9 @@ import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
+import RecentActivityPage from "../pages/RecentActivityPage";
+import UpcomingDeadlinesPage from "../pages/UpcomingDeadlinesPage";
+import TaskCalendarPage from "../pages/TaskCalendarPage";
 
 function AppRoutes() {
   return (
@@ -31,6 +34,33 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+  path="/recent-activity"
+  element={
+    <ProtectedRoute>
+      <RecentActivityPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/upcoming-deadlines"
+  element={
+    <ProtectedRoute>
+      <UpcomingDeadlinesPage />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/task-calendar"
+  element={
+    <ProtectedRoute>
+      <TaskCalendarPage />
+    </ProtectedRoute>
+  }
+/>
 
         <Route path="*" element={<NotFound />} />
       </Routes>

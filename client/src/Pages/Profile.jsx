@@ -159,7 +159,7 @@ const pendingTasks = tasks.filter(
             {/* Stats */}
             <div className="mt-10 grid gap-5 md:grid-cols-3">
 
-  <div className="rounded-2xl bg-indigo-600 p-6 text-center text-white">
+  <div className="rounded-2xl bg-indigo-600 p-4 text-center text-white shadow-lg">
     <FaTasks className="mx-auto mb-3 text-3xl" />
 
     <h2 className="text-3xl font-bold">

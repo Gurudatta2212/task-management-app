@@ -14,9 +14,6 @@ const getPriorityColor = (priority) => {
 function UpcomingDeadlines({ upcomingTasks }) {
   return (
     <div className="mt-8 rounded-3xl bg-white p-6 shadow-lg dark:bg-slate-900 dark:border dark:border-slate-700">
-      <h2 className="mb-5 text-2xl font-bold text-gray-800 dark:text-white">
-        Upcoming Deadlines
-      </h2>
 
       {upcomingTasks.length === 0 ? (
         <p className="text-gray-500 dark:text-slate-400">

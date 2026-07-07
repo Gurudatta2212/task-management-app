@@ -1,5 +1,11 @@
-import { FaUserCircle, FaBars, FaMoon, FaSun } from "react-icons/fa";
+import {
+  FaBars,
+  FaMoon,
+  FaSun,
+  FaUserCircle,
+} from "react-icons/fa";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
 import NotificationBell from "../notifications/NotificationBell";
 
@@ -33,7 +39,11 @@ function Navbar({
           </h2>
 
           <p className="hidden text-sm text-gray-500 dark:text-slate-300 sm:block">
-            Welcome back! Manage your tasks efficiently.
+            Welcome back,
+            <span className="ml-1 font-semibold text-indigo-600 dark:text-indigo-400">
+              {user?.name || "User"}
+            </span>{" "}
+            👋
           </p>
         </div>
 
@@ -47,7 +57,7 @@ function Navbar({
           onClick={() =>
             setDarkMode(!darkMode)
           }
-          className="rounded-full bg-indigo-100 p-3 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-yellow-400 dark:hover:bg-slate-700"
+          className="rounded-full bg-indigo-100 p-4 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-yellow-400 dark:hover:bg-slate-700"
         >
           {darkMode ? (
             <FaSun />
@@ -59,19 +69,27 @@ function Navbar({
         {/* Notifications */}
         <NotificationBell tasks={tasks} />
 
-        {/* User */}
-        <FaUserCircle className="text-4xl text-indigo-600 md:text-5xl" />
+        {/* Profile */}
+        <Link
+          to="/profile"
+          className="group relative"
+        >
+          <FaUserCircle className="cursor-pointer text-5xl text-indigo-600 transition duration-300 hover:scale-110" />
 
-        <div className="hidden text-right sm:block">
-          <h3 className="font-semibold text-gray-800 dark:text-white">
-            {user?.name || "User"}
-          </h3>
+          {/* Hover Card */}
+          <div className="pointer-events-none absolute right-0 top-12 hidden w-56 rounded-2xl border border-gray-200 bg-white p-4 shadow-2xl group-hover:block dark:border-slate-700 dark:bg-slate-900">
 
-          <p className="text-sm text-gray-500 dark:text-slate-300">
-            {user?.email ||
-              "user@example.com"}
-          </p>
-        </div>
+            <h3 className="font-semibold text-gray-900 dark:text-white">
+              {user?.name}
+            </h3>
+
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400 break-all">
+              {user?.email}
+            </p>
+
+          </div>
+
+        </Link>
 
       </div>
 

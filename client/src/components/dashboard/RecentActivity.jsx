@@ -1,9 +1,6 @@
 function RecentActivity({ tasks }) {
   return (
-    <div className="mt-10 rounded-3xl bg-white p-6 shadow-lg dark:bg-slate-900 dark:border dark:border-slate-700">
-      <h2 className="mb-5 text-2xl font-bold text-gray-800 dark:text-white">
-        Recent Activity
-      </h2>
+    <div className="rounded-3xl bg-white p-6 shadow-lg dark:border dark:border-slate-700 dark:bg-slate-900">
 
       <div className="space-y-4">
         {tasks.slice(0, 5).map((task) => (

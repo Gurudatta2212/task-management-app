@@ -3,7 +3,6 @@ import Sidebar from "../components/layout/Sidebar";
 import Navbar from "../components/layout/Navbar";
 import AddTaskModal from "../components/task/AddTaskModal";
 import EditTaskModal from "../components/task/EditTaskModal";
-import TaskChart from "../components/dashboard/TaskChart";
 import TaskPieChart from "../components/analytics/TaskPieChart";
 import PriorityChart from "../components/analytics/PriorityChart";
 
@@ -63,7 +62,7 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
   onExportPdf={() => exportTasksPdf(tasks)}
 />
 
-          <StatsCards
+  <StatsCards
   tasks={tasks}
   pending={pending}
   completed={completed}
@@ -79,11 +78,9 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
   setSortBy={setSortBy}
 />
 
-<div className="mt-10">
-  <TaskChart
-    pending={pending}
-    completed={completed}
-  />
+<div className="mt-10 grid gap-6 lg:grid-cols-2">
+  <TaskPieChart tasks={tasks} />
+  <PriorityChart tasks={tasks} />
 </div>
 
 <AnalyticsCards
@@ -93,24 +90,7 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
   completionRate={completionRate}
 />
 
-
-<div className="mt-10 grid gap-6 lg:grid-cols-2">
-  <TaskPieChart tasks={tasks} />
-
-  <PriorityChart tasks={tasks} />
-</div>
-
-<RecentActivity tasks={tasks} />
-
-<UpcomingDeadlines
-  upcomingTasks={upcomingTasks}
-/>
-
-<div className="mt-10">
-  <CalendarView tasks={tasks} />
-</div>
-
-          <div className="mt-14">
+  <div className="mt-14">
   <TaskList
     loading={loading}
     tasks={filteredTasks}
@@ -120,7 +100,6 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
     setIsModalOpen={setIsModalOpen}
   />
 </div>
-
   </main>
 </div>
 
@@ -137,7 +116,6 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
   task={selectedTask}
   fetchTasks={fetchTasks}
 />
-
     </div>
   );
 }

@@ -16,13 +16,14 @@ function NotificationBell({ tasks = [] }) {
   );
 
   const dueToday = tasks.filter((task) => {
-    if (!task.dueDate) return false;
+  if (!task.dueDate) return false;
 
-    return (
-      new Date(task.dueDate).toDateString() ===
+  return (
+    task.status !== "Completed" &&
+    new Date(task.dueDate).toDateString() ===
       new Date().toDateString()
-    );
-  });
+  );
+});
 
   const highPriority = tasks.filter(
     (task) =>
@@ -65,7 +66,7 @@ function NotificationBell({ tasks = [] }) {
     >
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="relative rounded-full bg-indigo-100 p-3 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
+        className="relative rounded-full bg-indigo-100 p-4 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
       >
         <FaBell className="text-lg" />
 
