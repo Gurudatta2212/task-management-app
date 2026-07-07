@@ -3,7 +3,7 @@ import { FaBell } from "react-icons/fa";
 import { AnimatePresence } from "framer-motion";
 import NotificationDropdown from "./NotificationDropdown";
 
-function NotificationBell({ tasks }) {
+function NotificationBell({ tasks = [] }) {
   const [open, setOpen] = useState(false);
 
   const dropdownRef = useRef(null);
