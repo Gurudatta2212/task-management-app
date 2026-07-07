@@ -17,15 +17,27 @@ const userSchema = new mongoose.Schema(
     },
 
     password: {
-      type: String,
-      required: [true, "Password is required"],
-      minlength: 6,
-    },
+  type: String,
+  required: [true, "Password is required"],
+  minlength: 6,
+},
+
+resetOtp: {
+  type: String,
+  default: null,
+},
+
+resetOtpExpire: {
+  type: Date,
+  default: null,
+},
   },
   {
     timestamps: true,
   }
 );
+
+
 
 const User = mongoose.model("User", userSchema);
 

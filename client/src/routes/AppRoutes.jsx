@@ -9,6 +9,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import RecentActivityPage from "../pages/RecentActivityPage";
 import UpcomingDeadlinesPage from "../pages/UpcomingDeadlinesPage";
 import TaskCalendarPage from "../pages/TaskCalendarPage";
+import ForgotPassword from "../pages/ForgotPassword";
+import VerifyOtp from "../pages/VerifyOtp";
+import ResetPassword from "../pages/ResetPassword";
 
 function AppRoutes() {
   return (
@@ -16,6 +19,21 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+
+        <Route
+  path="/forgot-password"
+  element={<ForgotPassword />}
+/>
+
+<Route
+  path="/verify-otp"
+  element={<VerifyOtp />}
+/>
+
+<Route
+  path="/reset-password"
+  element={<ResetPassword />}
+/>
 
         <Route
           path="/dashboard"

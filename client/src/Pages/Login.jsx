@@ -81,6 +81,15 @@ function Login() {
             required
           />
 
+          <div className="text-right">
+  <Link
+    to="/forgot-password"
+    className="text-sm font-semibold text-indigo-600 hover:underline"
+  >
+    Forgot Password?
+  </Link>
+</div>
+
           <Button type="submit">
             Login
           </Button>
