@@ -4,6 +4,7 @@ import api from "../services/api";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
+import { toast } from "react-toastify";
 
 function Login() {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ function Login() {
         JSON.stringify(response.data.user)
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/dashboard");
     } catch (error) {
@@ -45,7 +46,10 @@ function Login() {
   console.log("RESPONSE:", error.response);
   console.log("DATA:", error.response?.data);
 
-  alert(error.response?.data?.message || error.message);
+  toast.error(
+error.response?.data?.message ||
+error.message
+);
 }
   };
 

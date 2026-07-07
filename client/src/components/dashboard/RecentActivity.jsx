@@ -4,10 +4,12 @@ function RecentActivity({ tasks }) {
 
       <div className="space-y-4">
         {tasks.slice(0, 5).map((task) => (
+          
           <div
             key={task._id}
             className="flex items-center justify-between rounded-xl border border-gray-100 p-4 dark:border-slate-700"
           >
+            
             <div>
               <h3 className="font-semibold text-gray-800 dark:text-white">
                 {task.title}

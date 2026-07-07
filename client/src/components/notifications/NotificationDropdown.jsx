@@ -130,7 +130,7 @@ function NotificationDropdown({
           overdue.length === 0 && (
             <div className="py-10 text-center">
               <p className="text-slate-500 dark:text-slate-400">
-                🎉 You're all caught up!
+                 You're all caught up!
               </p>
             </div>
           )}

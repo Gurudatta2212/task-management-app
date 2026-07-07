@@ -4,6 +4,7 @@ import api from "../services/api";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
+import { toast } from "react-toastify";
 
 function ResetPassword() {
   const navigate = useNavigate();
@@ -31,7 +32,8 @@ function ResetPassword() {
       passwords.newPassword !==
       passwords.confirmPassword
     ) {
-      return alert("Passwords do not match.");
+      toast.warning("Passwords do not match.");
+return;
     }
 
     try {
@@ -44,14 +46,14 @@ function ResetPassword() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/");
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          "Failed to reset password."
-      );
+      toast.error(
+error.response?.data?.message ||
+"Failed to reset password."
+);
     }
   };
 

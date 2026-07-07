@@ -4,6 +4,7 @@ import api from "../services/api";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
+import { toast } from "react-toastify";
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -19,16 +20,16 @@ function ForgotPassword() {
         { email }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/verify-otp", {
         state: { email },
       });
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          "Failed to send OTP."
-      );
+      toast.error(
+error.response?.data?.message ||
+"Failed to send OTP."
+);
     }
   };
 

@@ -4,6 +4,7 @@ import api from "../services/api";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
+import { toast } from "react-toastify";
 
 function VerifyOtp() {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function VerifyOtp() {
         }
       );
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       navigate("/reset-password", {
         state: {
@@ -34,10 +35,10 @@ function VerifyOtp() {
         },
       });
     } catch (error) {
-      alert(
-        error.response?.data?.message ||
-          "Invalid OTP."
-      );
+      toast.error(
+error.response?.data?.message ||
+"Invalid OTP."
+);
     }
   };
 

@@ -4,6 +4,7 @@ import api from "../services/api";
 
 import Button from "../components/common/Button";
 import Input from "../components/common/Input";
+import { toast } from "react-toastify";
 
 function Register() {
   const navigate = useNavigate();
@@ -34,12 +35,12 @@ function Register() {
       !formData.password ||
       !formData.confirmPassword
     ) {
-      alert("Please fill all fields.");
+      toast.warning("Please fill all fields.");
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match.");
+      toast.warning("Passwords do not match.");
       return;
     }
 
@@ -54,7 +55,7 @@ function Register() {
 
       console.log("SUCCESS:", response.data);
 
-      alert(response.data.message);
+      toast.success(response.data.message);
 
       setFormData({
         name: "",
@@ -69,7 +70,10 @@ function Register() {
       console.error("RESPONSE:", error.response);
       console.error("DATA:", error.response?.data);
 
-      alert(error.response?.data?.message || error.message);
+     toast.error(
+error.response?.data?.message ||
+error.message
+);
     }
   };
 
