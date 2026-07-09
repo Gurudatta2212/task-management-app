@@ -44,6 +44,16 @@ function Register() {
       return;
     }
 
+    const emailRegex =
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(formData.email)) {
+  toast.warning(
+    "Please enter a valid email address."
+  );
+  return;
+}
+
     try {
       console.log("Calling Register API...");
 
@@ -55,7 +65,9 @@ function Register() {
 
       console.log("SUCCESS:", response.data);
 
-      toast.success(response.data.message);
+      toast.success(
+  "Account created successfully! Keep access to this email for password recovery."
+);
 
       setFormData({
         name: "",
@@ -78,8 +90,8 @@ error.message
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-5 dark:bg-slate-950">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg dark:bg-slate-900">
+    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-3 py-6 dark:bg-slate-950">
+      <div className="w-full max-w-lg rounded-2xl bg-white p-8 shadow-lg dark:bg-slate-900">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           Create Account
         </h1>
@@ -88,7 +100,7 @@ error.message
           Register to manage your tasks.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <Input
             label="Full Name"
             name="name"
@@ -128,12 +140,20 @@ error.message
             required
           />
 
-          <Button type="submit">
-            Register
-          </Button>
+          <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 dark:border-amber-800 dark:bg-amber-900/20">
+  <p className="text-xs leading-5 text-amber-700 dark:text-amber-300">
+    ⚠️ Use an email you own. You'll need it to reset your password.
+  </p>
+</div>
+
+<div className="mt-5">
+  <Button type="submit">
+    Register
+  </Button>
+</div>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-600 dark:text-slate-300">
+        <p className="mt-4 text-center text-sm text-gray-600 dark:text-slate-300">
           Already have an account?{" "}
           <Link
             to="/"

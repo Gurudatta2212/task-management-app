@@ -57,38 +57,38 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
 
         <main className="flex-1 overflow-y-auto p-8">
       
-        <DashboardHeader
+  <DashboardHeader
   setIsModalOpen={setIsModalOpen}
   onExportPdf={() => exportTasksPdf(tasks)}
-/>
+  />
 
   <StatsCards
   tasks={tasks}
   pending={pending}
   completed={completed}
   completionRate={completionRate}
-/>
+  />
 
-<SearchFilter
+  <SearchFilter
   search={search}
   setSearch={setSearch}
   filter={filter}
   setFilter={setFilter}
   sortBy={sortBy}
   setSortBy={setSortBy}
-/>
+  />
 
-<div className="mt-10 grid gap-6 lg:grid-cols-2">
+  <div className="mt-10 grid gap-6 lg:grid-cols-2">
   <TaskPieChart tasks={tasks} />
   <PriorityChart tasks={tasks} />
-</div>
+  </div>
 
-<AnalyticsCards
+  <AnalyticsCards
   highPriority={highPriority}
   overdueTasks={overdueTasks}
   dueToday={dueToday}
   completionRate={completionRate}
-/>
+  />
 
   <div className="mt-14">
   <TaskList
@@ -99,8 +99,8 @@ const { completed, pending, completionRate, highPriority, overdueTasks, dueToday
     onToggleStatus={handleToggleStatus}
     setIsModalOpen={setIsModalOpen}
   />
-</div>
-  </main>
+  </div>
+ </main>
 </div>
 
       {/* Modal */}
