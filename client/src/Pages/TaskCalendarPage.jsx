@@ -31,9 +31,9 @@ function TaskCalendarPage() {
           tasks={tasks}
         />
 
-        <main className="flex-1 overflow-y-auto p-8">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
 
-          <h1 className="mb-8 text-4xl font-bold dark:text-white">
+          <h1 className="mb-6 text-2xl font-bold dark:text-white sm:text-3xl lg:text-4xl">
             Task Calendar
           </h1>
 

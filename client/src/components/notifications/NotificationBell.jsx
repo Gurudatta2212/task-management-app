@@ -65,13 +65,13 @@ function NotificationBell({ tasks = [] }) {
       className="relative"
     >
       <button
-        onClick={() => setOpen((prev) => !prev)}
-        className="relative rounded-full bg-indigo-100 p-4 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
-      >
-        <FaBell className="text-lg" />
+  onClick={() => setOpen((prev) => !prev)}
+  className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 sm:h-12 sm:w-12"
+>
+        <FaBell className="text-base sm:text-lg" />
 
         {count > 0 && (
-          <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-semibold text-white">
+          <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white sm:-right-1 sm:-top-1 sm:h-5 sm:w-5 sm:text-xs">
             {count}
           </span>
         )}

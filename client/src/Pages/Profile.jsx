@@ -97,16 +97,17 @@ const pendingTasks = tasks.filter(
       <div className="flex flex-1 flex-col md:ml-72">
         <Navbar
           setIsSidebarOpen={setIsSidebarOpen}
+          tasks={tasks}
         />
 
-        <main className="flex-1 overflow-y-auto p-4">  
-        <div className="flex min-h-full items-center justify-center">
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <div className="flex min-h-full justify-center">
 
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="w-full max-w-2xl rounded-3xl border border-gray-200 bg-white p-10 shadow-xl dark:border-slate-700 dark:bg-slate-900"
+            className="w-full max-w-2xl rounded-3xl border border-gray-200 bg-white p-5 shadow-xl dark:border-slate-700 dark:bg-slate-900 sm:p-8 lg:p-10"
           >
             {/* Avatar */}
 
