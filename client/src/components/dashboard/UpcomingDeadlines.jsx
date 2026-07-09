@@ -13,14 +13,30 @@ const getPriorityColor = (priority) => {
 
 function UpcomingDeadlines({ upcomingTasks }) {
   return (
-    <div className="mt-8 rounded-3xl bg-white p-6 shadow-lg dark:bg-slate-900 dark:border dark:border-slate-700">
+    <div className="mt-8 rounded-3xl bg-white p-6 shadow-lg dark:border dark:border-slate-700 dark:bg-slate-900">
 
       {upcomingTasks.length === 0 ? (
-        <p className="text-gray-500 dark:text-slate-400">
-          No upcoming deadlines.
-        </p>
+
+        <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center dark:border-slate-700">
+
+          <div className="mb-4 text-5xl">
+            📅
+          </div>
+
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-white">
+            No Upcoming Deadlines
+          </h2>
+
+          <p className="mt-2 text-gray-500 dark:text-slate-400">
+            Your upcoming task deadlines will appear here.
+          </p>
+
+        </div>
+
       ) : (
+
         <div className="space-y-4">
+
           {upcomingTasks.map((task) => (
             <div
               key={task._id}
@@ -45,8 +61,11 @@ function UpcomingDeadlines({ upcomingTasks }) {
               </span>
             </div>
           ))}
+
         </div>
+
       )}
+
     </div>
   );
 }
