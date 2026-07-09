@@ -249,6 +249,7 @@ export const resetPassword = async (req, res) => {
     );
 
     user.password = hashedPassword;
+    
 
     // Clear OTP
     user.resetOtp = null;
@@ -266,6 +267,52 @@ export const resetPassword = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Internal server error.",
+    });
+  }
+};
+
+export const resendOtp = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    const otp = Math.floor(
+      100000 + Math.random() * 900000
+    ).toString();
+
+    user.resetOtp = otp;
+    user.resetOtpExpire = new Date(
+      Date.now() + 5 * 60 * 1000
+    );
+
+    await user.save();
+
+    await sendEmail(
+      user.email,
+      "Task Manager OTP",
+      `
+      <h2>Your New OTP</h2>
+      <h1>${otp}</h1>
+      <p>Valid for 5 minutes.</p>
+      `
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "OTP resent successfully.",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to resend OTP.",
     });
   }
 };
