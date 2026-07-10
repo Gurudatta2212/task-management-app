@@ -40,6 +40,7 @@ function TaskPieChart({ tasks }) {
       transition={{ duration: 0.4 }}
       className="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-900"
     >
+      {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -56,10 +57,8 @@ function TaskPieChart({ tasks }) {
         </div>
       </div>
 
-      <ResponsiveContainer
-        width="100%"
-        height={320}
-      >
+      {/* Pie Chart */}
+      <ResponsiveContainer width="100%" height={320}>
         <PieChart>
           <Pie
             data={data}
@@ -78,13 +77,12 @@ function TaskPieChart({ tasks }) {
           </Pie>
 
           <Tooltip />
-
           <Legend />
         </PieChart>
       </ResponsiveContainer>
 
+      {/* Statistics Cards */}
       <div className="mt-6 grid grid-cols-2 gap-4">
-
         <div className="rounded-2xl bg-green-50 p-4 text-center dark:bg-green-900/30">
           <p className="text-3xl font-bold text-green-600">
             {completed}
@@ -104,7 +102,6 @@ function TaskPieChart({ tasks }) {
             Pending
           </p>
         </div>
-
       </div>
     </motion.div>
   );

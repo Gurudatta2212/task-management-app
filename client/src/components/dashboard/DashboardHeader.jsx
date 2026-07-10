@@ -12,8 +12,7 @@ function DashboardHeader({
       transition={{ duration: 0.4 }}
       className="mb-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between"
     >
-      {/* Left */}
-
+      {/* Left Section */}
       <div>
         <h1 className="text-5xl font-extrabold text-gray-900 dark:text-white">
           My Tasks
@@ -24,10 +23,9 @@ function DashboardHeader({
         </p>
       </div>
 
-      {/* Right */}
-
+      {/* Right Section */}
       <div className="flex flex-wrap gap-4">
-
+        {/* Export PDF Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -35,10 +33,10 @@ function DashboardHeader({
           className="flex items-center gap-3 rounded-2xl border-2 border-red-600 bg-white px-6 py-4 font-semibold text-red-600 shadow-md transition hover:bg-red-600 hover:text-white dark:bg-slate-900"
         >
           <FaFilePdf className="text-xl" />
-
           Export PDF
         </motion.button>
 
+        {/* Add Task Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -47,9 +45,7 @@ function DashboardHeader({
         >
           + Add Task
         </motion.button>
-
       </div>
-
     </motion.div>
   );
 }

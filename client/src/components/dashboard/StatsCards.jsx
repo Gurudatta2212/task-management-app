@@ -13,6 +13,7 @@ function StatsCards({
       transition={{ delay: 0.2 }}
       className="grid gap-4 md:grid-cols-3"
     >
+      {/* Total Tasks Card */}
       <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-4 text-white shadow-lg">
         <p className="text-base opacity-90">
           Total Tasks
@@ -23,6 +24,7 @@ function StatsCards({
         </h2>
       </div>
 
+      {/* Pending Tasks Card */}
       <div className="rounded-2xl bg-gradient-to-r from-orange-400 to-yellow-500 p-4 text-white shadow-lg">
         <p className="text-base opacity-90">
           Pending
@@ -33,6 +35,7 @@ function StatsCards({
         </h2>
       </div>
 
+      {/* Completed Tasks Card */}
       <div className="rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 p-4 text-white shadow-lg">
         <p className="text-base opacity-90">
           Completed

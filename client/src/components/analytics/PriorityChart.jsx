@@ -8,7 +8,6 @@ import {
   Tooltip,
   Cell,
 } from "recharts";
-
 import { motion } from "framer-motion";
 
 function PriorityChart({ tasks }) {
@@ -49,6 +48,7 @@ function PriorityChart({ tasks }) {
       transition={{ duration: 0.4 }}
       className="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-900"
     >
+      {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -65,11 +65,9 @@ function PriorityChart({ tasks }) {
         </div>
       </div>
 
+      {/* Chart */}
       <ResponsiveContainer width="100%" height={320}>
-        <BarChart
-          data={data}
-          barCategoryGap={45}
-        >
+        <BarChart data={data} barCategoryGap={45}>
           <CartesianGrid
             strokeDasharray="4 4"
             stroke="#d1d5db"
@@ -110,8 +108,8 @@ function PriorityChart({ tasks }) {
         </BarChart>
       </ResponsiveContainer>
 
+      {/* Statistics Cards */}
       <div className="mt-6 grid grid-cols-3 gap-4">
-
         <div className="rounded-2xl bg-red-50 p-4 text-center dark:bg-red-900/30">
           <p className="text-3xl font-bold text-red-600">
             {high}
@@ -141,7 +139,6 @@ function PriorityChart({ tasks }) {
             Low
           </p>
         </div>
-
       </div>
     </motion.div>
   );

@@ -9,8 +9,7 @@ function SearchFilter({
   return (
     <div className="mt-10 rounded-3xl border border-gray-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-900">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-
-        {/* Search */}
+        {/* Search Input */}
         <input
           type="text"
           placeholder="🔍 Search tasks..."
@@ -21,6 +20,7 @@ function SearchFilter({
 
         {/* Filters */}
         <div className="flex items-center gap-3">
+          {/* Status Filter */}
           <select
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
@@ -31,6 +31,7 @@ function SearchFilter({
             <option value="Completed">Completed</option>
           </select>
 
+          {/* Sort Filter */}
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
@@ -41,7 +42,6 @@ function SearchFilter({
             <option value="Priority">Priority</option>
           </select>
         </div>
-
       </div>
     </div>
   );

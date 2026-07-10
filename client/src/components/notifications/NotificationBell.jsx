@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { FaBell } from "react-icons/fa";
 import { AnimatePresence } from "framer-motion";
+
 import NotificationDropdown from "./NotificationDropdown";
 
 function NotificationBell({ tasks = [] }) {
   const [open, setOpen] = useState(false);
 
+  // Dropdown Reference
   const dropdownRef = useRef(null);
 
+  // Overdue Tasks
   const overdue = tasks.filter(
     (task) =>
       task.status !== "Completed" &&
@@ -15,27 +18,31 @@ function NotificationBell({ tasks = [] }) {
       new Date(task.dueDate) < new Date()
   );
 
+  // Due Today Tasks
   const dueToday = tasks.filter((task) => {
-  if (!task.dueDate) return false;
+    if (!task.dueDate) return false;
 
-  return (
-    task.status !== "Completed" &&
-    new Date(task.dueDate).toDateString() ===
-      new Date().toDateString()
-  );
-});
+    return (
+      task.status !== "Completed" &&
+      new Date(task.dueDate).toDateString() ===
+        new Date().toDateString()
+    );
+  });
 
+  // High Priority Tasks
   const highPriority = tasks.filter(
     (task) =>
       task.priority === "High" &&
       task.status !== "Completed"
   );
 
+  // Total Notifications
   const count =
     overdue.length +
     dueToday.length +
     highPriority.length;
 
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -64,12 +71,14 @@ function NotificationBell({ tasks = [] }) {
       ref={dropdownRef}
       className="relative"
     >
+      {/* Notification Button */}
       <button
-  onClick={() => setOpen((prev) => !prev)}
-  className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 sm:h-12 sm:w-12"
->
+        onClick={() => setOpen((prev) => !prev)}
+        className="relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 transition hover:bg-indigo-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700 sm:h-12 sm:w-12"
+      >
         <FaBell className="text-base sm:text-lg" />
 
+        {/* Notification Badge */}
         {count > 0 && (
           <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-[10px] font-bold text-white sm:-right-1 sm:-top-1 sm:h-5 sm:w-5 sm:text-xs">
             {count}
@@ -77,6 +86,7 @@ function NotificationBell({ tasks = [] }) {
         )}
       </button>
 
+      {/* Notification Dropdown */}
       <AnimatePresence>
         {open && (
           <NotificationDropdown

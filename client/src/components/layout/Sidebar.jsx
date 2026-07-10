@@ -4,15 +4,16 @@ import {
   FaUser,
   FaSignOutAlt,
   FaTimes,
-  FaUserCircle,
-  FaHistory,
   FaCalendarAlt,
   FaRegCalendarAlt,
+  FaHistory,
 } from "react-icons/fa";
 
-function Sidebar({ isOpen, setIsOpen }) {
+function Sidebar({
+  isOpen,
+  setIsOpen,
+}) {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -22,12 +23,11 @@ function Sidebar({ isOpen, setIsOpen }) {
 
   return (
     <aside
-      className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-shrink-0 flex-col border-r border-gray-200 bg-white shadow-2xl transition-transform duration-300 dark:border-slate-700 dark:bg-slate-900 md:fixed md:left-0 md:top-0 md:translate-x-0 ${
+      className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-shrink-0 flex-col border-r border-gray-200 bg-white shadow-2xl transition-transform duration-300 dark:border-slate-700 dark:bg-slate-900 md:translate-x-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >
       {/* Header */}
-
       <div className="flex items-center justify-between border-b border-gray-200 p-6 dark:border-slate-700">
         <div>
           <h1 className="text-3xl font-extrabold text-indigo-600">
@@ -48,9 +48,9 @@ function Sidebar({ isOpen, setIsOpen }) {
       </div>
 
       {/* Navigation */}
-
       <nav className="flex-1 p-4">
         <ul className="space-y-3">
+          {/* Dashboard */}
           <li>
             <NavLink
               to="/dashboard"
@@ -67,54 +67,58 @@ function Sidebar({ isOpen, setIsOpen }) {
             </NavLink>
           </li>
 
-        <li>
-  <NavLink
-    to="/recent-activity"
-    className={({ isActive }) =>
-      `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
-        isActive
-          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
-          : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
-      }`
-    }
-  >
-    <FaHistory />
-    Recent Activity
-  </NavLink>
-</li>
+          {/* Recent Activity */}
+          <li>
+            <NavLink
+              to="/recent-activity"
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
+                  isActive
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                }`
+              }
+            >
+              <FaHistory />
+              Recent Activity
+            </NavLink>
+          </li>
 
-<li>
-  <NavLink
-    to="/upcoming-deadlines"
-    className={({ isActive }) =>
-      `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
-        isActive
-          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
-          : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
-      }`
-    }
-  >
-    <FaCalendarAlt />
-    Upcoming Deadlines
-  </NavLink>
-</li>
+          {/* Upcoming Deadlines */}
+          <li>
+            <NavLink
+              to="/upcoming-deadlines"
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
+                  isActive
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                }`
+              }
+            >
+              <FaCalendarAlt />
+              Upcoming Deadlines
+            </NavLink>
+          </li>
 
-<li>
-  <NavLink
-    to="/task-calendar"
-    className={({ isActive }) =>
-      `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
-        isActive
-          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
-          : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
-      }`
-    }
-  >
-    <FaRegCalendarAlt />
-    Task Calendar
-  </NavLink>
-</li>
+          {/* Task Calendar */}
+          <li>
+            <NavLink
+              to="/task-calendar"
+              className={({ isActive }) =>
+                `flex items-center gap-3 rounded-xl px-5 py-3 font-semibold transition-all duration-300 ${
+                  isActive
+                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg"
+                    : "text-gray-700 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-800"
+                }`
+              }
+            >
+              <FaRegCalendarAlt />
+              Task Calendar
+            </NavLink>
+          </li>
 
+          {/* Profile */}
           <li>
             <NavLink
               to="/profile"
@@ -134,7 +138,6 @@ function Sidebar({ isOpen, setIsOpen }) {
       </nav>
 
       {/* Logout */}
-
       <div className="border-t border-gray-200 p-4 dark:border-slate-700">
         <button
           onClick={handleLogout}

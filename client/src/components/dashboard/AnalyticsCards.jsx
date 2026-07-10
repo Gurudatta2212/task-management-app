@@ -6,7 +6,7 @@ function AnalyticsCards({
 }) {
   return (
     <div className="mt-8 grid gap-6 md:grid-cols-4">
-
+      {/* High Priority Card */}
       <div className="rounded-2xl bg-red-500 p-6 text-white shadow-lg">
         <p>🔥 High Priority</p>
 
@@ -15,6 +15,7 @@ function AnalyticsCards({
         </h2>
       </div>
 
+      {/* Overdue Tasks Card */}
       <div className="rounded-2xl bg-orange-500 p-6 text-white shadow-lg">
         <p>⚠️ Overdue</p>
 
@@ -23,6 +24,7 @@ function AnalyticsCards({
         </h2>
       </div>
 
+      {/* Due Today Card */}
       <div className="rounded-2xl bg-blue-500 p-6 text-white shadow-lg">
         <p>📅 Due Today</p>
 
@@ -31,6 +33,7 @@ function AnalyticsCards({
         </h2>
       </div>
 
+      {/* Completion Rate Card */}
       <div className="rounded-2xl bg-green-600 p-6 text-white shadow-lg">
         <p>📈 Completion</p>
 
@@ -38,7 +41,6 @@ function AnalyticsCards({
           {completionRate}%
         </h2>
       </div>
-
     </div>
   );
 }

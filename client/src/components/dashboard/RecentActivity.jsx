@@ -1,13 +1,10 @@
 function RecentActivity({ tasks }) {
   return (
     <div className="rounded-3xl bg-white p-6 shadow-lg dark:border dark:border-slate-700 dark:bg-slate-900">
-
       <div className="space-y-4">
-
         {tasks.length === 0 ? (
-
-          <div className="rounded-2xl border border-dashed border-gray-300 p-10 text-center dark:border-slate-700">
-
+          /* Empty State */
+          <div className="flex flex-col items-center justify-center py-10 text-center">
             <div className="mb-4 text-5xl">
               🕒
             </div>
@@ -19,18 +16,15 @@ function RecentActivity({ tasks }) {
             <p className="mt-2 text-gray-500 dark:text-slate-400">
               Your recent task activity will appear here.
             </p>
-
           </div>
-
         ) : (
-
+          /* Recent Tasks */
           tasks.slice(0, 5).map((task) => (
-
             <div
               key={task._id}
               className="flex items-center justify-between rounded-xl border border-gray-100 p-4 dark:border-slate-700"
             >
-
+              {/* Task Details */}
               <div>
                 <h3 className="font-semibold text-gray-800 dark:text-white">
                   {task.title}
@@ -41,6 +35,7 @@ function RecentActivity({ tasks }) {
                 </p>
               </div>
 
+              {/* Status Badge */}
               <span
                 className={`rounded-full px-4 py-2 text-sm font-semibold ${
                   task.status === "Completed"
@@ -50,15 +45,10 @@ function RecentActivity({ tasks }) {
               >
                 {task.status}
               </span>
-
             </div>
-
           ))
-
         )}
-
       </div>
-
     </div>
   );
 }

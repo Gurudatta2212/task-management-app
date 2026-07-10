@@ -32,14 +32,14 @@ function NotificationDropdown({
       }}
       className="absolute right-0 top-14 z-50 w-96 rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl dark:border-slate-700 dark:bg-slate-900"
     >
+      {/* Header */}
       <h2 className="mb-5 text-xl font-bold text-gray-800 dark:text-white">
         Notifications
       </h2>
 
+      {/* Notification List */}
       <div className="max-h-96 space-y-4 overflow-y-auto">
-
         {/* High Priority */}
-
         {highPriority.length > 0 && (
           <>
             <h3 className="text-sm font-bold uppercase tracking-wide text-orange-600">
@@ -68,7 +68,6 @@ function NotificationDropdown({
         )}
 
         {/* Due Today */}
-
         {dueToday.length > 0 && (
           <>
             <h3 className="text-sm font-bold uppercase tracking-wide text-yellow-600">
@@ -97,7 +96,6 @@ function NotificationDropdown({
         )}
 
         {/* Overdue */}
-
         {overdue.length > 0 && (
           <>
             <h3 className="text-sm font-bold uppercase tracking-wide text-red-600">
@@ -125,6 +123,7 @@ function NotificationDropdown({
           </>
         )}
 
+        {/* Empty State */}
         {highPriority.length === 0 &&
           dueToday.length === 0 &&
           overdue.length === 0 && (
@@ -134,7 +133,6 @@ function NotificationDropdown({
               </p>
             </div>
           )}
-
       </div>
     </motion.div>
   );

@@ -10,10 +10,12 @@ function TaskList({
   onToggleStatus,
   setIsModalOpen,
 }) {
+  // Show loading spinner
   if (loading) {
     return <LoadingSpinner />;
   }
 
+  // Show empty state when no tasks are available
   if (tasks.length === 0) {
     return (
       <EmptyState
@@ -22,6 +24,7 @@ function TaskList({
     );
   }
 
+  // Render task list
   return (
     <div className="mt-8 space-y-6">
       {tasks.map((task) => (

@@ -1,11 +1,15 @@
 import { useState } from "react";
-import api from "../../services/api";
-
-import Button from "../common/Button";
-import Input from "../common/Input";
 import { toast } from "react-toastify";
 
-function AddTaskModal({ isOpen, onClose, fetchTasks }) {
+import api from "../../services/api";
+import Button from "../common/Button";
+import Input from "../common/Input";
+
+function AddTaskModal({
+  isOpen,
+  onClose,
+  fetchTasks,
+}) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -15,6 +19,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
 
   if (!isOpen) return null;
 
+  // Handle Input Changes
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -22,6 +27,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
     }));
   };
 
+  // Submit Form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -59,19 +65,21 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      {/* Modal */}
       <div
-  className="
-    w-full
-    max-w-lg
-    max-h-[90vh]
-    overflow-y-auto
-    rounded-2xl
-    bg-white
-    p-6
-    shadow-xl
-    dark:bg-slate-900
-  "
->
+        className="
+          max-h-[90vh]
+          w-full
+          max-w-lg
+          overflow-y-auto
+          rounded-2xl
+          bg-white
+          p-6
+          shadow-xl
+          dark:bg-slate-900
+        "
+      >
+        {/* Header */}
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white">
           Add New Task
         </h2>
@@ -80,10 +88,12 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
           Create a new task to manage your work.
         </p>
 
+        {/* Form */}
         <form
           onSubmit={handleSubmit}
           className="mt-6 space-y-4"
         >
+          {/* Task Title */}
           <Input
             label="Task Title"
             name="title"
@@ -93,6 +103,7 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
             required
           />
 
+          {/* Description */}
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-700 dark:text-white">
               Description
@@ -105,26 +116,27 @@ function AddTaskModal({ isOpen, onClose, fetchTasks }) {
               rows={4}
               placeholder="Enter task description"
               className="
-rounded-lg
-border
-border-gray-300
-bg-white
-px-4
-py-3
-resize-none
-text-gray-800
-outline-none
-transition
-focus:border-indigo-600
-focus:ring-2
-focus:ring-indigo-200
-dark:border-slate-700
-dark:bg-slate-800
-dark:text-white
-"
+                resize-none
+                rounded-lg
+                border
+                border-gray-300
+                bg-white
+                px-4
+                py-3
+                text-gray-800
+                outline-none
+                transition
+                focus:border-indigo-600
+                focus:ring-2
+                focus:ring-indigo-200
+                dark:border-slate-700
+                dark:bg-slate-800
+                dark:text-white
+              "
             />
           </div>
 
+          {/* Priority */}
           <div className="flex flex-col gap-2">
             <label className="text-sm font-medium text-gray-700 dark:text-white">
               Priority
@@ -136,39 +148,49 @@ dark:text-white
               onChange={handleChange}
               className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
             >
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
+              <option value="High">
+                High
+              </option>
+
+              <option value="Medium">
+                Medium
+              </option>
+
+              <option value="Low">
+                Low
+              </option>
             </select>
           </div>
 
+          {/* Due Date */}
           <div className="flex flex-col gap-2">
-  <label className="text-sm font-medium text-gray-700 dark:text-white">
-    Due Date
-  </label>
+            <label className="text-sm font-medium text-gray-700 dark:text-white">
+              Due Date
+            </label>
 
-  <input
-    type="date"
-    name="dueDate"
-    value={formData.dueDate}
-    onChange={handleChange}
-    className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
-  />
-</div>
+            <input
+              type="date"
+              name="dueDate"
+              value={formData.dueDate}
+              onChange={handleChange}
+              className="rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+            />
+          </div>
 
+          {/* Action Buttons */}
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <Button
-  type="button"
-  onClick={onClose}
-  className="w-full bg-gray-500 hover:bg-gray-600 sm:w-auto"
->
+              type="button"
+              onClick={onClose}
+              className="w-full bg-gray-500 hover:bg-gray-600 sm:w-auto"
+            >
               Cancel
             </Button>
 
             <Button
-  type="submit"
-  className="w-full sm:w-auto"
->
+              type="submit"
+              className="w-full sm:w-auto"
+            >
               Save Task
             </Button>
           </div>

@@ -4,8 +4,7 @@ import "react-calendar/dist/Calendar.css";
 import "../../styles/calendar.css";
 
 function CalendarView({ tasks }) {
-  const [selectedDate, setSelectedDate] =
-    useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const selectedTasks = tasks.filter((task) => {
     if (!task.dueDate) return false;
@@ -18,12 +17,11 @@ function CalendarView({ tasks }) {
 
   return (
     <div className="mt-10 rounded-3xl border border-slate-200 bg-white p-6 shadow-lg dark:border-slate-700 dark:bg-slate-900">
-
+      {/* Calendar */}
       <Calendar
         value={selectedDate}
         onChange={setSelectedDate}
         className="rounded-2xl border-none"
-
         tileContent={({ date, view }) => {
           if (view !== "month") return null;
 
@@ -52,7 +50,6 @@ function CalendarView({ tasks }) {
 
           return (
             <div className="mt-1 flex justify-center gap-1">
-
               {completed > 0 && (
                 <span className="h-2 w-2 rounded-full bg-green-500"></span>
               )}
@@ -64,61 +61,50 @@ function CalendarView({ tasks }) {
               {high > 0 && (
                 <span className="h-2 w-2 rounded-full bg-red-500"></span>
               )}
-
             </div>
           );
         }}
       />
 
+      {/* Selected Date Tasks */}
       <div className="mt-8">
-
         <h3 className="mb-5 text-xl font-bold text-gray-800 dark:text-white">
-          Tasks on{" "}
-          {selectedDate.toLocaleDateString()}
+          Tasks on {selectedDate.toLocaleDateString()}
         </h3>
 
         {selectedTasks.length === 0 ? (
-
           <div className="rounded-2xl border border-dashed border-slate-300 p-10 text-center dark:border-slate-700">
-
             <h3 className="text-xl font-semibold text-gray-700 dark:text-white">
-               No Tasks
+              No Tasks
             </h3>
 
             <p className="mt-2 text-gray-500 dark:text-slate-400">
               There are no tasks scheduled for this date.
             </p>
-
           </div>
-
         ) : (
-
           <div className="space-y-4">
-
             {selectedTasks.map((task) => (
-
               <div
                 key={task._id}
                 className="flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:shadow-lg dark:border-slate-700 dark:bg-slate-800"
               >
-
+                {/* Task Details */}
                 <div>
-
                   <h4 className="text-lg font-semibold text-gray-800 dark:text-white">
                     {task.title}
                   </h4>
 
                   <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                    {task.description ||
-                      "No description"}
+                    {task.description || "No description"}
                   </p>
 
                   <p className="mt-2 text-sm text-indigo-600 dark:text-indigo-400">
                     Status : {task.status}
                   </p>
-
                 </div>
 
+                {/* Priority Badge */}
                 <span
                   className={`rounded-full px-4 py-2 text-sm font-semibold ${
                     task.priority === "High"
@@ -130,17 +116,11 @@ function CalendarView({ tasks }) {
                 >
                   {task.priority}
                 </span>
-
               </div>
-
             ))}
-
           </div>
-
         )}
-
       </div>
-
     </div>
   );
 }

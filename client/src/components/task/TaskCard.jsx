@@ -48,12 +48,10 @@ function TaskCard({
       }}
       className="rounded-3xl border border-gray-200 bg-white p-6 shadow-lg transition-all duration-300 dark:border-slate-700 dark:bg-slate-900"
     >
-      {/* Top */}
-
+      {/* Top Section */}
       <div className="flex items-start justify-between gap-5">
-
+        {/* Task Details */}
         <div className="flex-1">
-
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             {task.title}
           </h2>
@@ -63,15 +61,15 @@ function TaskCard({
           </p>
 
           <div className="mt-5 flex flex-wrap items-center gap-5">
-
+            {/* Created Date */}
             <span className="text-sm text-slate-400">
-              Created:
-              {" "}
+              Created:{" "}
               {task.createdAt
                 ? new Date(task.createdAt).toLocaleDateString()
                 : "-"}
             </span>
 
+            {/* Due Date */}
             <span className="flex items-center gap-2 text-sm text-indigo-600 dark:text-indigo-400">
               <FaCalendarAlt />
 
@@ -79,15 +77,12 @@ function TaskCard({
                 ? new Date(task.dueDate).toLocaleDateString()
                 : "No Due Date"}
             </span>
-
           </div>
-
         </div>
 
-        {/* Right */}
-
+        {/* Status & Priority */}
         <div className="flex flex-col items-end gap-3">
-
+          {/* Status Badge */}
           <span
             className={`rounded-full px-4 py-2 text-sm font-semibold ${
               task.status === "Completed"
@@ -98,6 +93,7 @@ function TaskCard({
             {task.status}
           </span>
 
+          {/* Priority Badge */}
           <span
             className={`rounded-full px-4 py-2 text-sm font-semibold ${getPriorityColor(
               task.priority
@@ -106,22 +102,21 @@ function TaskCard({
             {task.priority}
           </span>
 
+          {/* Overdue Badge */}
           {isOverdue(task) && (
             <span className="rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white">
               Overdue
             </span>
           )}
-
         </div>
-
       </div>
 
+      {/* Divider */}
       <div className="my-6 border-t border-gray-200 dark:border-slate-700"></div>
 
-      {/* Buttons */}
-
+      {/* Action Buttons */}
       <div className="flex flex-wrap gap-3">
-
+        {/* Toggle Status */}
         <button
           onClick={() => onToggleStatus(task)}
           className={`rounded-xl px-5 py-3 font-semibold text-white transition-all duration-300 ${
@@ -137,26 +132,24 @@ function TaskCard({
             : "Complete"}
         </button>
 
+        {/* Edit */}
         <button
           onClick={() => onEdit(task)}
           className="rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white transition hover:bg-blue-700"
         >
           <FaEdit className="mr-2 inline" />
-
           Edit
         </button>
 
+        {/* Delete */}
         <button
           onClick={() => onDelete(task._id)}
           className="rounded-xl bg-red-600 px-5 py-3 font-semibold text-white transition hover:bg-red-700"
         >
           <FaTrash className="mr-2 inline" />
-
           Delete
         </button>
-
       </div>
-
     </motion.div>
   );
 }
